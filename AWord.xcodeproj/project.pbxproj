@@ -9,14 +9,23 @@
 /* Begin PBXBuildFile section */
 		F15CAA492754F43100CFAC4D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA482754F43100CFAC4D /* AppDelegate.swift */; };
 		F15CAA4B2754F43100CFAC4D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA4A2754F43100CFAC4D /* SceneDelegate.swift */; };
-		F15CAA4D2754F43100CFAC4D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA4C2754F43100CFAC4D /* ViewController.swift */; };
-		F15CAA502754F43100CFAC4D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F15CAA4E2754F43100CFAC4D /* Main.storyboard */; };
 		F15CAA532754F43100CFAC4D /* AWord.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA512754F43100CFAC4D /* AWord.xcdatamodeld */; };
 		F15CAA552754F43300CFAC4D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F15CAA542754F43300CFAC4D /* Assets.xcassets */; };
 		F15CAA582754F43300CFAC4D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F15CAA562754F43300CFAC4D /* LaunchScreen.storyboard */; };
 		F15CAA632754F43300CFAC4D /* AWordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA622754F43300CFAC4D /* AWordTests.swift */; };
 		F15CAA6D2754F43300CFAC4D /* AWordUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA6C2754F43300CFAC4D /* AWordUITests.swift */; };
 		F15CAA6F2754F43300CFAC4D /* AWordUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA6E2754F43300CFAC4D /* AWordUITestsLaunchTests.swift */; };
+		F15CAA862754F62700CFAC4D /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAA852754F62700CFAC4D /* RxDataSources */; };
+		F15CAA892754F63200CFAC4D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAA882754F63200CFAC4D /* SnapKit */; };
+		F15CAA9327550A4800CFAC4D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAA9227550A4800CFAC4D /* RxCocoa */; };
+		F15CAA9527550A4800CFAC4D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAA9427550A4800CFAC4D /* RxSwift */; };
+		F15CAA9C27550E8C00CFAC4D /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA9B27550E8C00CFAC4D /* Word.swift */; };
+		F15CAA9E2755101F00CFAC4D /* WordStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA9D2755101F00CFAC4D /* WordStorageType.swift */; };
+		F15CAAA1275510A300CFAC4D /* WordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAA0275510A300CFAC4D /* WordListViewModel.swift */; };
+		F15CAAA32755110200CFAC4D /* MemoryStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAA22755110200CFAC4D /* MemoryStorage.swift */; };
+		F15CAAA52755138E00CFAC4D /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAA42755138E00CFAC4D /* Coordinator.swift */; };
+		F15CAAA72755140E00CFAC4D /* WordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAA62755140E00CFAC4D /* WordListViewController.swift */; };
+		F15CAAA9275516E000CFAC4D /* Composition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAA8275516E000CFAC4D /* Composition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +49,6 @@
 		F15CAA452754F43100CFAC4D /* AWord.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AWord.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F15CAA482754F43100CFAC4D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F15CAA4A2754F43100CFAC4D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F15CAA4C2754F43100CFAC4D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		F15CAA4F2754F43100CFAC4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F15CAA522754F43100CFAC4D /* AWord.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AWord.xcdatamodel; sourceTree = "<group>"; };
 		F15CAA542754F43300CFAC4D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F15CAA572754F43300CFAC4D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +58,13 @@
 		F15CAA682754F43300CFAC4D /* AWordUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AWordUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F15CAA6C2754F43300CFAC4D /* AWordUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWordUITests.swift; sourceTree = "<group>"; };
 		F15CAA6E2754F43300CFAC4D /* AWordUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AWordUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		F15CAA9B27550E8C00CFAC4D /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		F15CAA9D2755101F00CFAC4D /* WordStorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordStorageType.swift; sourceTree = "<group>"; };
+		F15CAAA0275510A300CFAC4D /* WordListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListViewModel.swift; sourceTree = "<group>"; };
+		F15CAAA22755110200CFAC4D /* MemoryStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoryStorage.swift; sourceTree = "<group>"; };
+		F15CAAA42755138E00CFAC4D /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		F15CAAA62755140E00CFAC4D /* WordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListViewController.swift; sourceTree = "<group>"; };
+		F15CAAA8275516E000CFAC4D /* Composition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Composition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +72,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F15CAA9327550A4800CFAC4D /* RxCocoa in Frameworks */,
+				F15CAA862754F62700CFAC4D /* RxDataSources in Frameworks */,
+				F15CAA9527550A4800CFAC4D /* RxSwift in Frameworks */,
+				F15CAA892754F63200CFAC4D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,14 +119,13 @@
 		F15CAA472754F43100CFAC4D /* AWord */ = {
 			isa = PBXGroup;
 			children = (
-				F15CAA482754F43100CFAC4D /* AppDelegate.swift */,
-				F15CAA4A2754F43100CFAC4D /* SceneDelegate.swift */,
-				F15CAA4C2754F43100CFAC4D /* ViewController.swift */,
-				F15CAA4E2754F43100CFAC4D /* Main.storyboard */,
-				F15CAA542754F43300CFAC4D /* Assets.xcassets */,
-				F15CAA562754F43300CFAC4D /* LaunchScreen.storyboard */,
+				F15CAA9F2755109A00CFAC4D /* WordListHome */,
+				F15CAA8E2755085200CFAC4D /* Model */,
+				F15CAA7E2754F4B600CFAC4D /* SupportingFiles */,
+				F15CAA7D2754F4B100CFAC4D /* DI */,
+				F15CAA7C2754F4AC00CFAC4D /* Coordinator */,
+				F15CAA7B2754F4A700CFAC4D /* Service */,
 				F15CAA592754F43300CFAC4D /* Info.plist */,
-				F15CAA512754F43100CFAC4D /* AWord.xcdatamodeld */,
 			);
 			path = AWord;
 			sourceTree = "<group>";
@@ -130,6 +147,76 @@
 			path = AWordUITests;
 			sourceTree = "<group>";
 		};
+		F15CAA7B2754F4A700CFAC4D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				F15CAA8D2755084100CFAC4D /* MemoryStorage */,
+				F15CAA8C2755083700CFAC4D /* Storage */,
+				F15CAA9D2755101F00CFAC4D /* WordStorageType.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		F15CAA7C2754F4AC00CFAC4D /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				F15CAAA42755138E00CFAC4D /* Coordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		F15CAA7D2754F4B100CFAC4D /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				F15CAAA8275516E000CFAC4D /* Composition.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		F15CAA7E2754F4B600CFAC4D /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				F15CAA482754F43100CFAC4D /* AppDelegate.swift */,
+				F15CAA4A2754F43100CFAC4D /* SceneDelegate.swift */,
+				F15CAA542754F43300CFAC4D /* Assets.xcassets */,
+				F15CAA562754F43300CFAC4D /* LaunchScreen.storyboard */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		F15CAA8C2755083700CFAC4D /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				F15CAA512754F43100CFAC4D /* AWord.xcdatamodeld */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		F15CAA8D2755084100CFAC4D /* MemoryStorage */ = {
+			isa = PBXGroup;
+			children = (
+				F15CAAA22755110200CFAC4D /* MemoryStorage.swift */,
+			);
+			path = MemoryStorage;
+			sourceTree = "<group>";
+		};
+		F15CAA8E2755085200CFAC4D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				F15CAA9B27550E8C00CFAC4D /* Word.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		F15CAA9F2755109A00CFAC4D /* WordListHome */ = {
+			isa = PBXGroup;
+			children = (
+				F15CAAA0275510A300CFAC4D /* WordListViewModel.swift */,
+				F15CAAA62755140E00CFAC4D /* WordListViewController.swift */,
+			);
+			path = WordListHome;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -146,6 +233,12 @@
 			dependencies = (
 			);
 			name = AWord;
+			packageProductDependencies = (
+				F15CAA852754F62700CFAC4D /* RxDataSources */,
+				F15CAA882754F63200CFAC4D /* SnapKit */,
+				F15CAA9227550A4800CFAC4D /* RxCocoa */,
+				F15CAA9427550A4800CFAC4D /* RxSwift */,
+			);
 			productName = AWord;
 			productReference = F15CAA452754F43100CFAC4D /* AWord.app */;
 			productType = "com.apple.product-type.application";
@@ -218,6 +311,11 @@
 				Base,
 			);
 			mainGroup = F15CAA3C2754F43100CFAC4D;
+			packageReferences = (
+				F15CAA842754F62700CFAC4D /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				F15CAA872754F63200CFAC4D /* XCRemoteSwiftPackageReference "SnapKit" */,
+				F15CAA9127550A4800CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = F15CAA462754F43100CFAC4D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -236,7 +334,6 @@
 			files = (
 				F15CAA582754F43300CFAC4D /* LaunchScreen.storyboard in Resources */,
 				F15CAA552754F43300CFAC4D /* Assets.xcassets in Resources */,
-				F15CAA502754F43100CFAC4D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,9 +358,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F15CAA4D2754F43100CFAC4D /* ViewController.swift in Sources */,
+				F15CAAA52755138E00CFAC4D /* Coordinator.swift in Sources */,
 				F15CAA492754F43100CFAC4D /* AppDelegate.swift in Sources */,
+				F15CAAA72755140E00CFAC4D /* WordListViewController.swift in Sources */,
+				F15CAAA32755110200CFAC4D /* MemoryStorage.swift in Sources */,
+				F15CAAA9275516E000CFAC4D /* Composition.swift in Sources */,
+				F15CAA9E2755101F00CFAC4D /* WordStorageType.swift in Sources */,
+				F15CAA9C27550E8C00CFAC4D /* Word.swift in Sources */,
 				F15CAA4B2754F43100CFAC4D /* SceneDelegate.swift in Sources */,
+				F15CAAA1275510A300CFAC4D /* WordListViewModel.swift in Sources */,
 				F15CAA532754F43100CFAC4D /* AWord.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,14 +404,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		F15CAA4E2754F43100CFAC4D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				F15CAA4F2754F43100CFAC4D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		F15CAA562754F43300CFAC4D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -448,7 +543,6 @@
 				INFOPLIST_FILE = AWord/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -476,7 +570,6 @@
 				INFOPLIST_FILE = AWord/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -628,6 +721,56 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F15CAA842754F62700CFAC4D /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+		F15CAA872754F63200CFAC4D /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+		F15CAA9127550A4800CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F15CAA852754F62700CFAC4D /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F15CAA842754F62700CFAC4D /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
+		F15CAA882754F63200CFAC4D /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F15CAA872754F63200CFAC4D /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+		F15CAA9227550A4800CFAC4D /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F15CAA9127550A4800CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		F15CAA9427550A4800CFAC4D /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F15CAA9127550A4800CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		F15CAA512754F43100CFAC4D /* AWord.xcdatamodeld */ = {
