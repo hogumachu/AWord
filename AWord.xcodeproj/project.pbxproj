@@ -26,6 +26,7 @@
 		F15CAAA52755138E00CFAC4D /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAA42755138E00CFAC4D /* Coordinator.swift */; };
 		F15CAAA72755140E00CFAC4D /* WordListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAA62755140E00CFAC4D /* WordListViewController.swift */; };
 		F15CAAA9275516E000CFAC4D /* Composition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAA8275516E000CFAC4D /* Composition.swift */; };
+		F15CAAAB27551BEE00CFAC4D /* WordListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAAA27551BEE00CFAC4D /* WordListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		F15CAAA42755138E00CFAC4D /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		F15CAAA62755140E00CFAC4D /* WordListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListViewController.swift; sourceTree = "<group>"; };
 		F15CAAA8275516E000CFAC4D /* Composition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Composition.swift; sourceTree = "<group>"; };
+		F15CAAAA27551BEE00CFAC4D /* WordListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,11 +122,11 @@
 			isa = PBXGroup;
 			children = (
 				F15CAA9F2755109A00CFAC4D /* WordListHome */,
+				F15CAA7B2754F4A700CFAC4D /* Service */,
 				F15CAA8E2755085200CFAC4D /* Model */,
-				F15CAA7E2754F4B600CFAC4D /* SupportingFiles */,
 				F15CAA7D2754F4B100CFAC4D /* DI */,
 				F15CAA7C2754F4AC00CFAC4D /* Coordinator */,
-				F15CAA7B2754F4A700CFAC4D /* Service */,
+				F15CAA7E2754F4B600CFAC4D /* SupportingFiles */,
 				F15CAA592754F43300CFAC4D /* Info.plist */,
 			);
 			path = AWord;
@@ -213,6 +215,7 @@
 			children = (
 				F15CAAA0275510A300CFAC4D /* WordListViewModel.swift */,
 				F15CAAA62755140E00CFAC4D /* WordListViewController.swift */,
+				F15CAAAA27551BEE00CFAC4D /* WordListTableViewCell.swift */,
 			);
 			path = WordListHome;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				F15CAA9C27550E8C00CFAC4D /* Word.swift in Sources */,
 				F15CAA4B2754F43100CFAC4D /* SceneDelegate.swift in Sources */,
 				F15CAAA1275510A300CFAC4D /* WordListViewModel.swift in Sources */,
+				F15CAAAB27551BEE00CFAC4D /* WordListTableViewCell.swift in Sources */,
 				F15CAA532754F43100CFAC4D /* AWord.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
