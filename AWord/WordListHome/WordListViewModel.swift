@@ -42,6 +42,10 @@ class WordListViewModel: WordStorableViewModelType {
     }
     
     func create() {
-        storage.createWord(definition: "1", meaning: "2")
+        coordinator.transition(scene: .listCreate, transition: .modal, sectionStorage: storage, animated: true)
+    }
+    
+    func delete(indexPath: IndexPath) {
+        storage.delete(at: indexPath.row)
     }
 }

@@ -11,7 +11,13 @@ extension AppDependency {
         let wordSetViewControllerFactory: (WordSetViewController.Dependency) -> WordSetViewController = { dependency in
             return .init(dependency: dependency)
         }
+        let wordSetCreateViewControllerFactory: (WordSetCreateViewController.Dependency) -> WordSetCreateViewController = { dependency in
+            return .init(dependency: dependency)
+        }
         let wordListViewControllerFactory: (WordListViewController.Dependency) -> WordListViewController = { dependency in
+            return .init(dependency: dependency)
+        }
+        let wordListCreateViewControllerFactory: (WordListCreateViewController.Dependency) -> WordListCreateViewController = { dependency in
             return .init(dependency: dependency)
         }
         
@@ -24,7 +30,9 @@ extension AppDependency {
                         ),
                         sceneDependency: .init(
                             wordSetViewControllerFactory: wordSetViewControllerFactory,
-                            wordListViewControllerFactory: wordListViewControllerFactory
+                            wordSetCreateViewControllerFactory: wordSetCreateViewControllerFactory,
+                            wordListViewControllerFactory: wordListViewControllerFactory,
+                            wordListCreateViewControllerFactory: wordListCreateViewControllerFactory
                         )
                     )
         )

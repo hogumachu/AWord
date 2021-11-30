@@ -1,21 +1,24 @@
 import UIKit
 class Coordinator {
+    
+    // MARK: Dependency
+    
     struct Dependency {
         let window: UIWindow
         let storage: WordSetStorageType
     }
     
-    struct SceneDependency {
-        let wordSetViewControllerFactory: (WordSetViewController.Dependency) -> WordSetViewController
-        let wordListViewControllerFactory: (WordListViewController.Dependency) -> WordListViewController
-    }
-    
-    // MARK: Dependency
-    
     let window: UIWindow
     let storage: WordSetStorageType
     
     // MARK: Scene Dependency
+    
+    struct SceneDependency {
+        let wordSetViewControllerFactory: (WordSetViewController.Dependency) -> WordSetViewController
+        let wordSetCreateViewControllerFactory: (WordSetCreateViewController.Dependency) -> WordSetCreateViewController
+        let wordListViewControllerFactory: (WordListViewController.Dependency) -> WordListViewController
+        let wordListCreateViewControllerFactory: (WordListCreateViewController.Dependency) -> WordListCreateViewController
+    }
     
     let mainNavigationController: UINavigationController = {
         let navigationController = UINavigationController()
@@ -23,7 +26,9 @@ class Coordinator {
     }()
     lazy var currentViewController: UIViewController? = mainNavigationController.topViewController
     let wordSetViewControllerFactory: (WordSetViewController.Dependency) -> WordSetViewController
+    let wordSetCreateViewControllerFactory: (WordSetCreateViewController.Dependency) -> WordSetCreateViewController
     let wordListViewControllerFactory: (WordListViewController.Dependency) -> WordListViewController
+    let wordListCreateViewControllerFactory: (WordListCreateViewController.Dependency) -> WordListCreateViewController
     
     // MARK: Init
     
@@ -32,7 +37,9 @@ class Coordinator {
         self.storage = dependency.storage
         
         self.wordSetViewControllerFactory = sceneDependency.wordSetViewControllerFactory
+        self.wordSetCreateViewControllerFactory = sceneDependency.wordSetCreateViewControllerFactory
         self.wordListViewControllerFactory = sceneDependency.wordListViewControllerFactory
+        self.wordListCreateViewControllerFactory = sceneDependency.wordListCreateViewControllerFactory
     }
     
 }
@@ -46,13 +53,13 @@ extension Coordinator {
 
         switch transition {
         case .root:
-            mainNavigationController.setViewControllers([viewController], animated: false)
+            mainNavigationController.setViewControllers([viewController], animated: animated)
             window.rootViewController = mainNavigationController
             window.makeKeyAndVisible()
         case .push:
-            return
+            mainNavigationController.pushViewController(viewController, animated: animated)
         case .modal:
-            return
+            currentViewController?.present(viewController, animated: animated, completion: nil)
         }
     }
     
@@ -66,9 +73,32 @@ extension Coordinator {
             window.makeKeyAndVisible()
         case .push:
             mainNavigationController.pushViewController(viewController, animated: true)
-            return
         case .modal:
             currentViewController?.present(viewController, animated: true, completion: nil)
+        }
+    }
+    
+    func transition(scene: Scene, transition: Transition, sectionStorage: WordStorageType, animated: Bool) {
+        let viewController = sceneFactory(scene: scene, sectionStorage: sectionStorage)
+        
+        switch transition {
+        case .root:
+            window.rootViewController = viewController
+            currentViewController = viewController
+            window.makeKeyAndVisible()
+        case .push:
+            mainNavigationController.pushViewController(viewController, animated: true)
+        case .modal:
+            currentViewController?.present(viewController, animated: true, completion: nil)
+        }
+    }
+    
+    func backTransition(transition: BackTransition, animated: Bool) {
+        switch transition {
+        case .pop:
+            mainNavigationController.popViewController(animated: animated)
+        case .dismiss:
+            currentViewController?.dismiss(animated: animated, completion: nil)
         }
     }
     
@@ -77,7 +107,12 @@ extension Coordinator {
         case .set:
             let setVC = wordSetViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: storage))))
             return setVC
+        case .setCreate:
+            let setCreateVC = wordSetCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: storage))))
+            return setCreateVC
         case .list:
+            return UIViewController()
+        case .listCreate:
             return UIViewController()
         }
     }
@@ -87,11 +122,29 @@ extension Coordinator {
         case .set:
             let setVC = wordSetViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: storage))))
             return setVC
+        case .setCreate:
+            let setCreateVC = wordSetCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: storage))))
+            return setCreateVC
         case .list:
             let wordSet = storage.sectionModel(model: model)
             let listStorage = MemoryStorage(dependency: .init(title: wordSet.title, sectionModel: wordSet.sectionModel, setStorage: storage))
             let listVC = wordListViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: listStorage, model: model))))
             return listVC
+        case .listCreate:
+            let wordSet = storage.sectionModel(model: model)
+            let listStorage = MemoryStorage(dependency: .init(title: wordSet.title, sectionModel: wordSet.sectionModel, setStorage: storage))
+            let listCreateVC = wordListCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: listStorage))))
+            return listCreateVC
+        }
+    }
+    
+    private func sceneFactory(scene: Scene, sectionStorage: WordStorageType) -> UIViewController {
+        switch scene {
+        case .listCreate:
+            let listCreateVC = wordListCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: sectionStorage))))
+            return listCreateVC
+        default:
+            return UIViewController()
         }
     }
     
@@ -99,7 +152,9 @@ extension Coordinator {
 
 enum Scene {
     case set
+    case setCreate
     case list
+    case listCreate
 }
 
 enum Transition {
@@ -108,3 +163,7 @@ enum Transition {
     case modal
 }
 
+enum BackTransition {
+    case pop
+    case dismiss
+}

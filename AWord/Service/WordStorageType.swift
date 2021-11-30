@@ -1,8 +1,10 @@
 import RxSwift
 
 protocol WordStorageType {
+    var title: String { get }
+    
     @discardableResult
-    func createWord(definition: String, meaning: String) -> Observable<Word>
+    func createWord(definition: String, meaning: String) -> Bool
     
     @discardableResult
     func wordList() -> Observable<[WordSectionModel]>
@@ -12,4 +14,6 @@ protocol WordStorageType {
     
     @discardableResult
     func delete(word: Word) -> Observable<Word>
+    
+    func delete(at: Int)
 }

@@ -21,14 +21,14 @@ class MemoryStorage: WordStorageType {
     private lazy var store = BehaviorSubject<[WordSectionModel]>(value: [sectionModel])
     
     @discardableResult
-    func createWord(definition: String, meaning: String) -> Observable<Word> {
+    func createWord(definition: String, meaning: String) -> Bool {
         let word = Word(definition: definition, meaning: meaning)
-        sectionModel.items.insert(word, at: 0)
-        store.onNext([sectionModel])
         
+        sectionModel.items.append(word)
+        store.onNext([sectionModel])
         setStorage.append(at: title, word: word)
         
-        return Observable.just(word)
+        return true
     }
     
     @discardableResult
@@ -59,5 +59,13 @@ class MemoryStorage: WordStorageType {
         store.onNext([sectionModel])
         
         return Observable.just(word)
+    }
+    
+    func delete(at index: Int) {
+        if sectionModel.items.count > index {
+            sectionModel.items.remove(at: index)
+        }
+        
+        store.onNext([sectionModel])
     }
 }

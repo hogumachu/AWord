@@ -20,7 +20,8 @@ class WordSetViewModel: WordSetStorableViewModelType {
             cell.setItem(item: item)
             return cell
         }
-        
+        ds.canEditRowAtIndexPath = { _, _ in return true }
+        ds.canMoveRowAtIndexPath = { _, _ in return true}
         return ds
     }()
     
@@ -43,12 +44,27 @@ class WordSetViewModel: WordSetStorableViewModelType {
         self.storage = dependency.storage
     }
     
-    func itemSelected(indexPath: IndexPath) {
+    func itemSelected(tableView: UITableView, indexPath: IndexPath) {
         
+        tableView.deselectRow(at: indexPath, animated: true)
         coordinator.transition(scene: .list, transition: .push, model: indexPath.section, animated: true)
+        
     }
     
     func create() {
-        storage.createSet(title: "자동 생성")
+        coordinator.transition(scene: .setCreate, transition: .modal, animated: true)
+    }
+    
+    func delete(indexPath: IndexPath) {
+        print(indexPath)
+        storage.delete(at: indexPath.section)
+    }
+    
+    func delete(wordSet: WordSet) {
+        storage.delete(set: wordSet)
+    }
+    
+    func move(source: IndexPath, destination: IndexPath) {
+        storage.move(source: source.section, destination: destination.section)
     }
 }

@@ -1,5 +1,7 @@
 import UIKit
 import RxSwift
+import RxCocoa
+import SnapKit
 
 class WordSetViewController: UIViewController {
     struct Dependency {
@@ -7,8 +9,8 @@ class WordSetViewController: UIViewController {
     }
     
     let viewModel: WordSetViewModel
-    let disposeBag = DisposeBag()
     
+    private let disposeBag = DisposeBag()
     private let setTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -20,6 +22,13 @@ class WordSetViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("생성", for: .normal)
         button.setTitleColor(.blue, for: .normal)
+        return button
+    }()
+    private let editButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("편집", for: .normal)
+        button.setTitleColor(.red, for: .normal)
         return button
     }()
     
@@ -43,6 +52,7 @@ class WordSetViewController: UIViewController {
         
         view.addSubview(setTableView)
         view.addSubview(createButton)
+        view.addSubview(editButton)
         
         setTableView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
@@ -50,6 +60,11 @@ class WordSetViewController: UIViewController {
         
         createButton.snp.makeConstraints {
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+        }
+        
+        editButton.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
         }
     }
@@ -64,9 +79,27 @@ class WordSetViewController: UIViewController {
         
         setTableView.rx.itemSelected
             .bind(
+                with: self,
+                onNext: { vc, indexPath in
+                    vc.viewModel.itemSelected(tableView: vc.setTableView, indexPath: indexPath)
+                }
+            )
+            .disposed(by: disposeBag)
+        
+        setTableView.rx.modelDeleted(WordSet.self)
+            .bind(
                 with: viewModel,
-                onNext: { viewModel, indexPath in
-                    viewModel.itemSelected(indexPath: indexPath)
+                onNext: { viewModel, wordSet in
+                    viewModel.delete(wordSet: wordSet)
+                }
+            )
+            .disposed(by: disposeBag)
+        
+        setTableView.rx.itemMoved
+            .bind(
+                with: viewModel,
+                onNext: { viewModel, indexPaths in
+                    viewModel.move(source: indexPaths.sourceIndex, destination: indexPaths.destinationIndex)
                 }
             )
             .disposed(by: disposeBag)
@@ -79,6 +112,19 @@ class WordSetViewController: UIViewController {
                 }
             )
             .disposed(by: disposeBag)
+        
+        editButton.rx.tap
+            .bind(
+                with: self,
+                onNext: { vc, _ in
+                    vc.changeEditMode()
+                }
+            )
+            .disposed(by: disposeBag)
+    }
+    
+    private func changeEditMode() {
+        setTableView.setEditing(!setTableView.isEditing, animated: true)
     }
 }
 

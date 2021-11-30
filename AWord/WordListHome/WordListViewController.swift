@@ -6,7 +6,6 @@ import SnapKit
 class WordListViewController: UIViewController {
     struct Dependency {
         let viewModel: WordListViewModel
-        
     }
     
     let viewModel: WordListViewModel
@@ -28,7 +27,6 @@ class WordListViewController: UIViewController {
     
     init(dependency: Dependency) {
         self.viewModel = dependency.viewModel
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -76,6 +74,15 @@ class WordListViewController: UIViewController {
             )
             .disposed(by: disposeBag)
         
+        wordListTableView.rx.itemDeleted
+            .bind(
+                with: viewModel,
+                onNext: { viewModel, indexPath in
+                    viewModel.delete(indexPath: indexPath)
+                }
+            )
+            .disposed(by: disposeBag)
+        
         createButton.rx.tap
             .bind(
                 with: viewModel,
@@ -84,6 +91,8 @@ class WordListViewController: UIViewController {
                 }
             )
             .disposed(by: disposeBag)
+        
+        navigationItem.title = viewModel.storage.title
     }
 }
 

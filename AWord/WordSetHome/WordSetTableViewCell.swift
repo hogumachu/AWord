@@ -8,7 +8,7 @@ class WordSetTableViewCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        
+        label.textAlignment = .center
         return label
     }()
     
@@ -28,6 +28,8 @@ class WordSetTableViewCell: UITableViewCell {
         
         titleLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
+            $0.leading.equalToSuperview().offset(5)
+            $0.trailing.equalToSuperview().offset(-5)
         }
     }
     

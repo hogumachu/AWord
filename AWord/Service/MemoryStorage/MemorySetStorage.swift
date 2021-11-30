@@ -51,10 +51,9 @@ class MemorySetStorage: WordSetStorageType {
     }
     
     @discardableResult
-    func createSet(title: String) -> Observable<WordSet?> {
+    func createSet(title: String) -> Bool {
         if sectionModels.contains(where: { $0.identity == title }) {
-            print("title:", title)
-            return Observable.just(nil)
+            return false
         }
         
         let wordSet = WordSet(title: title, sectionModel: WordSectionModel(model: sectionModels.count, items: []))
@@ -62,7 +61,7 @@ class MemorySetStorage: WordSetStorageType {
         sectionModels.append(wordSet)
         store.onNext(sectionModels)
         
-        return Observable.just(wordSet)
+        return true
     }
     
     @discardableResult
@@ -81,8 +80,6 @@ class MemorySetStorage: WordSetStorageType {
             sectionModels[index].sectionModel.items.append(word)
             store.onNext(sectionModels)
         }
-        
-        
     }
     
     @discardableResult
@@ -93,6 +90,22 @@ class MemorySetStorage: WordSetStorageType {
         }
         
         return Observable.just(set)
+    }
+    
+    func delete(at index: Int) {
+        if index < sectionModels.count {
+            sectionModels.remove(at: index)
+        }
+        
+        store.onNext(sectionModels)
+    }
+    
+    func move(source: Int, destination: Int) {
+        let tmp = sectionModels[source]
+        sectionModels.remove(at: source)
+        sectionModels.insert(tmp, at: destination)
+        
+        store.onNext(sectionModels)
     }
     
     func sectionModel(model: Int) -> WordSet {
