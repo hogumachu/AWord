@@ -48,4 +48,8 @@ class WordListViewModel: WordStorableViewModelType {
     func delete(indexPath: IndexPath) {
         storage.delete(at: indexPath.row)
     }
+    
+    func delete(word: Word) {
+        storage.delete(word: word)
+    }
 }

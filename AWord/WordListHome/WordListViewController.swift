@@ -74,11 +74,11 @@ class WordListViewController: UIViewController {
             )
             .disposed(by: disposeBag)
         
-        wordListTableView.rx.itemDeleted
+        wordListTableView.rx.modelDeleted(Word.self)
             .bind(
                 with: viewModel,
-                onNext: { viewModel, indexPath in
-                    viewModel.delete(indexPath: indexPath)
+                onNext: { viewModel, word in
+                    viewModel.delete(word: word)
                 }
             )
             .disposed(by: disposeBag)

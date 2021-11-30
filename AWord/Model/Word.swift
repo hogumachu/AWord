@@ -46,4 +46,19 @@ extension Word {
         correct = entity.value(forKey: "correct") as! Int16
         wrong = entity.value(forKey: "wrong") as! Int16
     }
+    
+    func update(_ entity: NSManagedObject) {
+        entity.setValue(correct, forKey: "correct")
+        entity.setValue(definition, forKey: "definition")
+        entity.setValue(identity, forKey: "identity")
+        entity.setValue(insertDate, forKey: "insertDate")
+        entity.setValue(meaning, forKey: "meaning")
+        entity.setValue(wrong, forKey: "wrong")
+        
+        do {
+            try entity.managedObjectContext?.save()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
 }

@@ -17,8 +17,6 @@
 		F15CAA6F2754F43300CFAC4D /* AWordUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA6E2754F43300CFAC4D /* AWordUITestsLaunchTests.swift */; };
 		F15CAA862754F62700CFAC4D /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAA852754F62700CFAC4D /* RxDataSources */; };
 		F15CAA892754F63200CFAC4D /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAA882754F63200CFAC4D /* SnapKit */; };
-		F15CAA9327550A4800CFAC4D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAA9227550A4800CFAC4D /* RxCocoa */; };
-		F15CAA9527550A4800CFAC4D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAA9427550A4800CFAC4D /* RxSwift */; };
 		F15CAA9C27550E8C00CFAC4D /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA9B27550E8C00CFAC4D /* Word.swift */; };
 		F15CAA9E2755101F00CFAC4D /* WordStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAA9D2755101F00CFAC4D /* WordStorageType.swift */; };
 		F15CAAA1275510A300CFAC4D /* WordListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAA0275510A300CFAC4D /* WordListViewModel.swift */; };
@@ -40,6 +38,9 @@
 		F15CAAC42755EA7100CFAC4D /* WordSetCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAC32755EA7100CFAC4D /* WordSetCreateViewModel.swift */; };
 		F15CAAC82755F48100CFAC4D /* WordListCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAC72755F48100CFAC4D /* WordListCreateViewController.swift */; };
 		F15CAACA2755F48B00CFAC4D /* WordListCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAC92755F48B00CFAC4D /* WordListCreateViewModel.swift */; };
+		F15CAACC27561DFA00CFAC4D /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAACB27561DFA00CFAC4D /* CoreDataStorage.swift */; };
+		F15CAACF275620C300CFAC4D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAACE275620C300CFAC4D /* RxCocoa */; };
+		F15CAAD1275620C300CFAC4D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAAD0275620C300CFAC4D /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		F15CAAC32755EA7100CFAC4D /* WordSetCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSetCreateViewModel.swift; sourceTree = "<group>"; };
 		F15CAAC72755F48100CFAC4D /* WordListCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListCreateViewController.swift; sourceTree = "<group>"; };
 		F15CAAC92755F48B00CFAC4D /* WordListCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListCreateViewModel.swift; sourceTree = "<group>"; };
+		F15CAACB27561DFA00CFAC4D /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +102,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F15CAA9327550A4800CFAC4D /* RxCocoa in Frameworks */,
+				F15CAACF275620C300CFAC4D /* RxCocoa in Frameworks */,
 				F15CAA862754F62700CFAC4D /* RxDataSources in Frameworks */,
-				F15CAA9527550A4800CFAC4D /* RxSwift in Frameworks */,
+				F15CAAD1275620C300CFAC4D /* RxSwift in Frameworks */,
 				F15CAA892754F63200CFAC4D /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -219,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				F15CAA512754F43100CFAC4D /* AWord.xcdatamodeld */,
+				F15CAACB27561DFA00CFAC4D /* CoreDataStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -310,8 +313,8 @@
 			packageProductDependencies = (
 				F15CAA852754F62700CFAC4D /* RxDataSources */,
 				F15CAA882754F63200CFAC4D /* SnapKit */,
-				F15CAA9227550A4800CFAC4D /* RxCocoa */,
-				F15CAA9427550A4800CFAC4D /* RxSwift */,
+				F15CAACE275620C300CFAC4D /* RxCocoa */,
+				F15CAAD0275620C300CFAC4D /* RxSwift */,
 			);
 			productName = AWord;
 			productReference = F15CAA452754F43100CFAC4D /* AWord.app */;
@@ -388,7 +391,7 @@
 			packageReferences = (
 				F15CAA842754F62700CFAC4D /* XCRemoteSwiftPackageReference "RxDataSources" */,
 				F15CAA872754F63200CFAC4D /* XCRemoteSwiftPackageReference "SnapKit" */,
-				F15CAA9127550A4800CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */,
+				F15CAACD275620C300CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = F15CAA462754F43100CFAC4D /* Products */;
 			projectDirPath = "";
@@ -447,6 +450,7 @@
 				F15CAAB52755C9D000CFAC4D /* WordStorableViewModelType.swift in Sources */,
 				F15CAA4B2754F43100CFAC4D /* SceneDelegate.swift in Sources */,
 				F15CAAC22755EA5600CFAC4D /* WordSetCreateViewController.swift in Sources */,
+				F15CAACC27561DFA00CFAC4D /* CoreDataStorage.swift in Sources */,
 				F15CAAAD2755C95400CFAC4D /* WordSet.swift in Sources */,
 				F15CAACA2755F48B00CFAC4D /* WordListCreateViewModel.swift in Sources */,
 				F15CAAB72755CA0400CFAC4D /* ViewModelType.swift in Sources */,
@@ -827,7 +831,7 @@
 				kind = branch;
 			};
 		};
-		F15CAA9127550A4800CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+		F15CAACD275620C300CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift";
 			requirement = {
@@ -848,14 +852,14 @@
 			package = F15CAA872754F63200CFAC4D /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		F15CAA9227550A4800CFAC4D /* RxCocoa */ = {
+		F15CAACE275620C300CFAC4D /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F15CAA9127550A4800CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = F15CAACD275620C300CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
 		};
-		F15CAA9427550A4800CFAC4D /* RxSwift */ = {
+		F15CAAD0275620C300CFAC4D /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = F15CAA9127550A4800CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = F15CAACD275620C300CFAC4D /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */

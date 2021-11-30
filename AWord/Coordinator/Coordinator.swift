@@ -126,9 +126,8 @@ extension Coordinator {
             let setCreateVC = wordSetCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: storage))))
             return setCreateVC
         case .list:
-            let wordSet = storage.sectionModel(model: model)
-            let listStorage = MemoryStorage(dependency: .init(title: wordSet.title, sectionModel: wordSet.sectionModel, setStorage: storage))
-            let listVC = wordListViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: listStorage, model: model))))
+            let coredataStorage = CoreDataStorage(dependency: .init(modelName: "AWord", title: "코어데이텨"))
+            let listVC = wordListViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: coredataStorage, model: 0))))
             return listVC
         case .listCreate:
             let wordSet = storage.sectionModel(model: model)
