@@ -1,3 +1,5 @@
+import UIKit
+
 class WordListCreateViewModel: WordStorableViewModelType {
     struct Dependency {
         let coordinator: Coordinator
@@ -12,15 +14,14 @@ class WordListCreateViewModel: WordStorableViewModelType {
         self.storage = dependency.storage
     }
     
-    func create(definition: String?, meaning: String?) {
+    func create(_ viewControoer: UIViewController, definition: String?, meaning: String?) {
         if let definition = definition, let meaning = meaning, !definition.isEmpty, !meaning.isEmpty {
             storage.createWord(definition: definition, meaning: meaning)
         }
-        
-        coordinator.backTransition(transition: .dismiss, animated: true)
+        coordinator.dismiss(viewController: viewControoer, animated: true)
     }
     
-    func cancel() {
-        coordinator.backTransition(transition: .dismiss, animated: true)
+    func cancel(_ viewController: UIViewController) {
+        coordinator.dismiss(viewController: viewController, animated: true)
     }
 }

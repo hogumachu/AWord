@@ -87,16 +87,16 @@ class WordSetCreateViewController: UIViewController {
             .bind(
                 with: self,
                 onNext: { vc, _ in
-                    vc.viewModel.create(title: vc.titleTextField.text)
+                    vc.viewModel.create(vc, title: vc.titleTextField.text)
                 }
             )
             .disposed(by: disposeBag)
         
         cancelButton.rx.tap
             .bind(
-                with: viewModel,
-                onNext: { viewModel, _ in
-                    viewModel.cancel()
+                with: self,
+                onNext: { vc, _ in
+                    vc.viewModel.cancel(vc)
                 }
             )
             .disposed(by: disposeBag)

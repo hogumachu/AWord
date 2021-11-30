@@ -50,7 +50,7 @@ class CoreDataStorage: WordStorageType {
     
     private lazy var sectionModel: WordSectionModel = {
         if let words = try? context.fetch(WordEntity.fetchRequest())
-            .map { Word(entity: $0) } {
+            .map({ Word(entity: $0) }) {
                 return WordSectionModel(model: 0, items: words)
             }
         return WordSectionModel(model: 0, items: [])
@@ -82,8 +82,9 @@ class CoreDataStorage: WordStorageType {
         do {
             let objects = try context.fetch(WordEntity.fetchRequest())
             
-            if let index = sectionModel.items.firstIndex(of: Word(entity: objects[0])) {
-                context.delete(objects[0])
+            if let object = objects.first(where: { $0.identity == word.identity }),
+               let index = sectionModel.items.firstIndex(where: { $0.identity == object.identity }) {
+                context.delete(object)
                 try context.save()
                 
                 sectionModel.items.remove(at: index)

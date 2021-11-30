@@ -101,16 +101,16 @@ class WordListCreateViewController: UIViewController {
             .bind(
                 with: self,
                 onNext: { vc, _ in
-                    vc.viewModel.create(definition: vc.wordTextField.text, meaning: vc.meaningTextField.text)
+                    vc.viewModel.create(vc, definition: vc.wordTextField.text, meaning: vc.meaningTextField.text)
                 }
             )
             .disposed(by: disposeBag)
         
         cancelButton.rx.tap
             .bind(
-                with: viewModel,
-                onNext: { viewModel, _ in
-                    viewModel.cancel()
+                with: self,
+                onNext: { vc, _ in
+                    vc.viewModel.cancel(vc)
                 }
             )
             .disposed(by: disposeBag)

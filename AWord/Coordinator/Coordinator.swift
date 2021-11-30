@@ -47,60 +47,68 @@ class Coordinator {
 // MARK: Scene Transition
 
 extension Coordinator {
-    func transition(scene: Scene, transition: Transition, animated: Bool) {
-
-        let viewController = sceneFactory(scene: scene)
-
-        switch transition {
-        case .root:
-            mainNavigationController.setViewControllers([viewController], animated: animated)
-            window.rootViewController = mainNavigationController
-            window.makeKeyAndVisible()
-        case .push:
-            mainNavigationController.pushViewController(viewController, animated: animated)
-        case .modal:
-            currentViewController?.present(viewController, animated: animated, completion: nil)
-        }
-    }
-    
-    func transition(scene: Scene, transition: Transition, model: Int, animated: Bool) {
-        let viewController = sceneFactory(scene: scene, model: model)
-        
-        switch transition {
-        case .root:
-            window.rootViewController = viewController
-            currentViewController = viewController
-            window.makeKeyAndVisible()
-        case .push:
-            mainNavigationController.pushViewController(viewController, animated: true)
-        case .modal:
-            currentViewController?.present(viewController, animated: true, completion: nil)
-        }
-    }
-    
-    func transition(scene: Scene, transition: Transition, sectionStorage: WordStorageType, animated: Bool) {
-        let viewController = sceneFactory(scene: scene, sectionStorage: sectionStorage)
-        
-        switch transition {
-        case .root:
-            window.rootViewController = viewController
-            currentViewController = viewController
-            window.makeKeyAndVisible()
-        case .push:
-            mainNavigationController.pushViewController(viewController, animated: true)
-        case .modal:
-            currentViewController?.present(viewController, animated: true, completion: nil)
-        }
-    }
-    
-    func backTransition(transition: BackTransition, animated: Bool) {
-        switch transition {
-        case .pop:
-            mainNavigationController.popViewController(animated: animated)
-        case .dismiss:
-            currentViewController?.dismiss(animated: animated, completion: nil)
-        }
-    }
+//    func transition(scene: Scene, transition: Transition, animated: Bool) {
+//
+//        let viewController = sceneFactory(scene: scene)
+//
+//        switch transition {
+//        case .root:
+//            mainNavigationController.setViewControllers([viewController], animated: animated)
+//            window.rootViewController = mainNavigationController
+//            window.makeKeyAndVisible()
+//        case .push:
+//            mainNavigationController.pushViewController(viewController, animated: animated)
+//        case .modal:
+//            currentViewController?.present(viewController, animated: animated, completion: nil)
+//        }
+//    }
+//    
+//    func transition(scene: Scene, transition: Transition, model: Int, animated: Bool) {
+//        let viewController = sceneFactory(scene: scene, model: model)
+//        
+//        switch transition {
+//        case .root:
+//            window.rootViewController = viewController
+//            currentViewController = viewController
+//            window.makeKeyAndVisible()
+//        case .push:
+//            mainNavigationController.pushViewController(viewController, animated: true)
+//        case .modal:
+//            currentViewController?.present(viewController, animated: true, completion: nil)
+//        }
+//    }
+//    
+//    func transition(scene: Scene, transition: Transition, sectionStorage: WordStorageType, animated: Bool) {
+//        let viewController = sceneFactory(scene: scene, sectionStorage: sectionStorage)
+//        
+//        switch transition {
+//        case .root:
+//            window.rootViewController = viewController
+//            currentViewController = viewController
+//            window.makeKeyAndVisible()
+//        case .push:
+//            mainNavigationController.pushViewController(viewController, animated: true)
+//        case .modal:
+//            currentViewController?.present(viewController, animated: true, completion: nil)
+//        }
+//    }
+//    
+//    func backTransition(transition: BackTransition, animated: Bool) {
+//        switch transition {
+//        case .pop:
+//            guard mainNavigationController.popViewController(animated: animated) != nil else {
+//                return
+//            }
+//            
+//            currentViewController = mainNavigationController.viewControllers.last!
+//        case .dismiss:
+//            if let presentVC = currentViewController {
+//                presentVC.dismiss(animated: animated) { [weak self] in
+//                    self?.currentViewController = presentVC.firstChildren
+//                }
+//            }
+//        }
+//    }
     
     private func sceneFactory(scene: Scene) -> UIViewController {
         switch scene {
@@ -147,6 +155,57 @@ extension Coordinator {
         }
     }
     
+    
+    func root(scene: Scene, animated: Bool) {
+        let viewController = sceneFactory(scene: scene)
+        
+        mainNavigationController.setViewControllers([viewController], animated: animated)
+        window.rootViewController = mainNavigationController
+        window.makeKeyAndVisible()
+    }
+    
+    func push(at navigation: NavigationScene, scene: Scene, animated: Bool) {
+        let viewController = sceneFactory(scene: scene)
+        
+        switch navigation {
+        case .main:
+            mainNavigationController.pushViewController(viewController, animated: animated)
+        }
+        
+    }
+    
+    func push(at navigation: NavigationScene, scene: Scene, model: Int, animated: Bool) {
+        let viewController = sceneFactory(scene: scene, model: model)
+        
+        switch navigation {
+        case .main:
+            mainNavigationController.pushViewController(viewController, animated: animated)
+        }
+        
+    }
+    
+    func modal(at parentViewController: UIViewController, scene: Scene, animated: Bool) {
+        let viewController = sceneFactory(scene: scene)
+        
+        parentViewController.present(viewController, animated: animated, completion: nil)
+    }
+    
+    func modal(at parentViewController: UIViewController, scene: Scene, sectionStorage: WordStorageType, animated: Bool) {
+        let viewController = sceneFactory(scene: scene, sectionStorage: sectionStorage)
+        
+        parentViewController.present(viewController, animated: animated, completion: nil)
+    }
+    
+    func pop(from navigation: NavigationScene, animated: Bool) {
+        switch navigation {
+        case .main:
+            mainNavigationController.popViewController(animated: animated)
+        }
+    }
+    
+    func dismiss(viewController: UIViewController, animated: Bool) {
+        viewController.dismiss(animated: animated, completion: nil)
+    }
 }
 
 enum Scene {
@@ -165,4 +224,14 @@ enum Transition {
 enum BackTransition {
     case pop
     case dismiss
+}
+
+enum NavigationScene {
+    case main
+}
+
+extension UIViewController {
+    var firstChildren: UIViewController {
+        return self.children.first ?? self
+    }
 }

@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = coordinator.window
         
-        coordinator.transition(scene: .set, transition: .root, animated: false)
+        coordinator.root(scene: .set, animated: false)
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

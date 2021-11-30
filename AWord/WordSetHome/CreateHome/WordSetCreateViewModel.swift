@@ -1,3 +1,5 @@
+import UIKit
+
 class WordSetCreateViewModel: WordSetStorableViewModelType {
     struct Dependency {
         let coordinator: Coordinator
@@ -12,15 +14,15 @@ class WordSetCreateViewModel: WordSetStorableViewModelType {
         self.storage = dependency.storage
     }
     
-    func create(title: String?) {
+    func create(_ viewController: UIViewController, title: String?) {
         if let title = title, !title.isEmpty {
             storage.createSet(title: title)
         }
         
-        coordinator.backTransition(transition: .dismiss, animated: true)
+        coordinator.dismiss(viewController: viewController, animated: true)
     }
     
-    func cancel() {
-        coordinator.backTransition(transition: .dismiss, animated: true)
+    func cancel(_ viewController: UIViewController) {
+        coordinator.dismiss(viewController: viewController, animated: true)
     }
 }

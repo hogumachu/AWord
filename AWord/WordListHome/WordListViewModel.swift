@@ -41,8 +41,8 @@ class WordListViewModel: WordStorableViewModelType {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func create() {
-        coordinator.transition(scene: .listCreate, transition: .modal, sectionStorage: storage, animated: true)
+    func create(_ viewController: UIViewController) {
+        coordinator.modal(at: viewController, scene: .listCreate, sectionStorage: storage, animated: true)
     }
     
     func delete(indexPath: IndexPath) {
@@ -50,6 +50,7 @@ class WordListViewModel: WordStorableViewModelType {
     }
     
     func delete(word: Word) {
+        print(word)
         storage.delete(word: word)
     }
 }

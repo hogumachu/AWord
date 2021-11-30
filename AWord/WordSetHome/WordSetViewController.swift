@@ -106,9 +106,9 @@ class WordSetViewController: UIViewController {
         
         createButton.rx.tap
             .bind(
-                with: viewModel,
-                onNext: { viewModel, _ in
-                    viewModel.create()
+                with: self,
+                onNext: { vc, _ in
+                    vc.viewModel.create(vc)
                 }
             )
             .disposed(by: disposeBag)
