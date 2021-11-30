@@ -2,14 +2,21 @@ import RxSwift
 import Foundation
 
 class MemoryStorage: WordStorageType {
+    struct Dependency {
+        let title: String
+        let sectionModel: WordSectionModel
+        let setStorage: WordSetStorageType
+    }
     
-    private var MOCK = [
-        Word(definition: "Hi", meaning: "안녕하세요", insertDate: Date().addingTimeInterval(-10)),
-        Word(definition: "Bye", meaning: "안녕히계세요", insertDate: Date().addingTimeInterval(-20)),
-        Word(definition: "Happy", meaning: "행복한", insertDate: Date().addingTimeInterval(-30))
-    ]
+    let title: String
+    var sectionModel: WordSectionModel
+    let setStorage: WordSetStorageType
     
-    private lazy var sectionModel = WordSectionModel(model: 0, items: MOCK)
+    init(dependency: Dependency) {
+        self.title = dependency.title
+        self.sectionModel = dependency.sectionModel
+        self.setStorage = dependency.setStorage
+    }
     
     private lazy var store = BehaviorSubject<[WordSectionModel]>(value: [sectionModel])
     
@@ -18,6 +25,8 @@ class MemoryStorage: WordStorageType {
         let word = Word(definition: definition, meaning: meaning)
         sectionModel.items.insert(word, at: 0)
         store.onNext([sectionModel])
+        
+        setStorage.append(at: title, word: word)
         
         return Observable.just(word)
     }

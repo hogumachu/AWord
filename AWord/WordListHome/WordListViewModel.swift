@@ -4,15 +4,21 @@ import RxDataSources
 
 typealias WordSectionModel = AnimatableSectionModel<Int, Word>
 
-class WordListViewModel {
+class WordListViewModel: WordStorableViewModelType {
     struct Dependency {
+        let coordinator: Coordinator
         let storage: WordStorageType
+        let model: Int
     }
     
+    let coordinator: Coordinator
     let storage: WordStorageType
+    let model: Int
     
     init(dependency: Dependency) {
+        self.coordinator = dependency.coordinator
         self.storage = dependency.storage
+        self.model = dependency.model
     }
     
     let dataSource: RxTableViewSectionedAnimatedDataSource<WordSectionModel> = {
@@ -32,5 +38,10 @@ class WordListViewModel {
     func itemSelected(tableView: UITableView, at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as? WordListTableViewCell
         cell?.flip()
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func create() {
+        storage.createWord(definition: "1", meaning: "2")
     }
 }

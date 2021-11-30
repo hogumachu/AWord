@@ -6,8 +6,11 @@ struct AppDependency {
 
 extension AppDependency {
     static func execute(window: UIWindow) -> AppDependency {
-        let storage = MemoryStorage()
+        let storage = MemorySetStorage()
         
+        let wordSetViewControllerFactory: (WordSetViewController.Dependency) -> WordSetViewController = { dependency in
+            return .init(dependency: dependency)
+        }
         let wordListViewControllerFactory: (WordListViewController.Dependency) -> WordListViewController = { dependency in
             return .init(dependency: dependency)
         }
@@ -20,6 +23,7 @@ extension AppDependency {
                             storage: storage
                         ),
                         sceneDependency: .init(
+                            wordSetViewControllerFactory: wordSetViewControllerFactory,
                             wordListViewControllerFactory: wordListViewControllerFactory
                         )
                     )

@@ -1,41 +1,36 @@
 import UIKit
 import RxSwift
-import RxCocoa
-import SnapKit
 
-class WordListViewController: UIViewController {
+class WordSetViewController: UIViewController {
     struct Dependency {
-        let viewModel: WordListViewModel
-        
+        let viewModel: WordSetViewModel
     }
     
-    let viewModel: WordListViewModel
+    let viewModel: WordSetViewModel
+    let disposeBag = DisposeBag()
     
-    private let disposeBag = DisposeBag()
-    private let wordListTableView: UITableView = {
+    private let setTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(WordListTableViewCell.self, forCellReuseIdentifier: WordListTableViewCell.identifier)
+        tableView.register(WordSetTableViewCell.self, forCellReuseIdentifier: WordSetTableViewCell.identifier)
         return tableView
     }()
     private let createButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("생성", for: .normal)
-        button.setTitleColor(.systemPink, for: .normal)
+        button.setTitleColor(.blue, for: .normal)
         return button
     }()
     
     init(dependency: Dependency) {
         self.viewModel = dependency.viewModel
-        
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,10 +41,10 @@ class WordListViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = .white
         
-        view.addSubview(wordListTableView)
+        view.addSubview(setTableView)
         view.addSubview(createButton)
         
-        wordListTableView.snp.makeConstraints {
+        setTableView.snp.makeConstraints {
             $0.top.leading.trailing.bottom.equalToSuperview()
         }
         
@@ -60,18 +55,18 @@ class WordListViewController: UIViewController {
     }
     
     private func bind() {
-        wordListTableView.rx.setDelegate(self)
+        setTableView.rx.setDelegate(self)
             .disposed(by: disposeBag)
         
-        viewModel.wordList
-            .bind(to: wordListTableView.rx.items(dataSource: viewModel.dataSource))
+        viewModel.wordSetList
+            .bind(to: setTableView.rx.items(dataSource: viewModel.dataSource))
             .disposed(by: disposeBag)
         
-        wordListTableView.rx.itemSelected
+        setTableView.rx.itemSelected
             .bind(
-                with: self,
-                onNext: { vc, indexPath in
-                    vc.viewModel.itemSelected(tableView: vc.wordListTableView, at: indexPath)
+                with: viewModel,
+                onNext: { viewModel, indexPath in
+                    viewModel.itemSelected(indexPath: indexPath)
                 }
             )
             .disposed(by: disposeBag)
@@ -87,4 +82,4 @@ class WordListViewController: UIViewController {
     }
 }
 
-extension WordListViewController: UIScrollViewDelegate { }
+extension WordSetViewController: UIScrollViewDelegate { }
