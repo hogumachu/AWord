@@ -42,6 +42,11 @@
 		F15CAACF275620C300CFAC4D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAACE275620C300CFAC4D /* RxCocoa */; };
 		F15CAAD1275620C300CFAC4D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAAD0275620C300CFAC4D /* RxSwift */; };
 		F15CAAD3275759D500CFAC4D /* WordSetStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAD2275759D500CFAC4D /* WordSetStorage.swift */; };
+		F15CAAD627578D4C00CFAC4D /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAD527578D4C00CFAC4D /* Image.swift */; };
+		F15CAAD827578E6100CFAC4D /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAD727578E6100CFAC4D /* Color.swift */; };
+		F15CAADB27579AF400CFAC4D /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAADA27579AF400CFAC4D /* DateHelper.swift */; };
+		F15CAADD2757B27D00CFAC4D /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAADC2757B27D00CFAC4D /* Scene.swift */; };
+		F15CAADF2757B29400CFAC4D /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAADE2757B29400CFAC4D /* Transition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +102,11 @@
 		F15CAAC92755F48B00CFAC4D /* WordListCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListCreateViewModel.swift; sourceTree = "<group>"; };
 		F15CAACB27561DFA00CFAC4D /* WordStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordStorage.swift; sourceTree = "<group>"; };
 		F15CAAD2275759D500CFAC4D /* WordSetStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSetStorage.swift; sourceTree = "<group>"; };
+		F15CAAD527578D4C00CFAC4D /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		F15CAAD727578E6100CFAC4D /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		F15CAADA27579AF400CFAC4D /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		F15CAADC2757B27D00CFAC4D /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
+		F15CAADE2757B29400CFAC4D /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,13 +161,15 @@
 		F15CAA472754F43100CFAC4D /* AWord */ = {
 			isa = PBXGroup;
 			children = (
-				F15CAAB32755C9A600CFAC4D /* Type */,
+				F15CAA7B2754F4A700CFAC4D /* Service */,
 				F15CAAAE2755C97500CFAC4D /* WordSetHome */,
 				F15CAA9F2755109A00CFAC4D /* WordListHome */,
-				F15CAA7B2754F4A700CFAC4D /* Service */,
 				F15CAA8E2755085200CFAC4D /* Model */,
 				F15CAA7D2754F4B100CFAC4D /* DI */,
 				F15CAA7C2754F4AC00CFAC4D /* Coordinator */,
+				F15CAAD427578D3100CFAC4D /* Constant */,
+				F15CAAB32755C9A600CFAC4D /* Type */,
+				F15CAAD927579AC500CFAC4D /* Helper */,
 				F15CAA7E2754F4B600CFAC4D /* SupportingFiles */,
 				F15CAA592754F43300CFAC4D /* Info.plist */,
 			);
@@ -196,6 +208,8 @@
 			isa = PBXGroup;
 			children = (
 				F15CAAA42755138E00CFAC4D /* Coordinator.swift */,
+				F15CAADE2757B29400CFAC4D /* Transition.swift */,
+				F15CAADC2757B27D00CFAC4D /* Scene.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -295,6 +309,23 @@
 				F15CAAC72755F48100CFAC4D /* WordListCreateViewController.swift */,
 			);
 			path = CreateHome;
+			sourceTree = "<group>";
+		};
+		F15CAAD427578D3100CFAC4D /* Constant */ = {
+			isa = PBXGroup;
+			children = (
+				F15CAAD527578D4C00CFAC4D /* Image.swift */,
+				F15CAAD727578E6100CFAC4D /* Color.swift */,
+			);
+			path = Constant;
+			sourceTree = "<group>";
+		};
+		F15CAAD927579AC500CFAC4D /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				F15CAADA27579AF400CFAC4D /* DateHelper.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -439,13 +470,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				F15CAABB2755CDE000CFAC4D /* WordSetStorageType.swift in Sources */,
+				F15CAAD627578D4C00CFAC4D /* Image.swift in Sources */,
+				F15CAADD2757B27D00CFAC4D /* Scene.swift in Sources */,
 				F15CAAA52755138E00CFAC4D /* Coordinator.swift in Sources */,
+				F15CAADB27579AF400CFAC4D /* DateHelper.swift in Sources */,
 				F15CAA492754F43100CFAC4D /* AppDelegate.swift in Sources */,
 				F15CAAC42755EA7100CFAC4D /* WordSetCreateViewModel.swift in Sources */,
 				F15CAAA72755140E00CFAC4D /* WordListViewController.swift in Sources */,
 				F15CAAA32755110200CFAC4D /* MemoryStorage.swift in Sources */,
+				F15CAADF2757B29400CFAC4D /* Transition.swift in Sources */,
 				F15CAAA9275516E000CFAC4D /* Composition.swift in Sources */,
 				F15CAA9E2755101F00CFAC4D /* WordStorageType.swift in Sources */,
+				F15CAAD827578E6100CFAC4D /* Color.swift in Sources */,
 				F15CAA9C27550E8C00CFAC4D /* Word.swift in Sources */,
 				F15CAAB22755C98700CFAC4D /* WordSetViewModel.swift in Sources */,
 				F15CAAB02755C98100CFAC4D /* WordSetViewController.swift in Sources */,
