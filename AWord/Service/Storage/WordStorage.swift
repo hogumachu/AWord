@@ -34,26 +34,7 @@ class WordStorage: WordStorageType {
     private var context: NSManagedObjectContext {
         return container.viewContext
     }
-    
-    func createWord(definition: String, meaning: String) -> Bool {
-        
-        let word = Word(definition: definition, meaning: meaning, parentIdentity: parentIdentity)
-        
-        if let entity = NSEntityDescription.entity(forEntityName: "Word", in: context) {
-            let entityObject = NSManagedObject(entity: entity, insertInto: context)
-            word.update(entityObject)
-            
-            
-            sectionModel.items.append(word)
-            sectionModel.items.sort(by: { $0.definition < $1.definition })
-            store.onNext([sectionModel])
-            
-            return true
-        }
-        
-        return false
-    }
-    
+
     private lazy var sectionModel: WordSectionModel = {
         let fetchRequest = NSFetchRequest<WordEntity>(entityName: "Word")
         let sort = NSSortDescriptor(key: "definition", ascending: true)
@@ -71,6 +52,24 @@ class WordStorage: WordStorageType {
     
     func wordList() -> Observable<[WordSectionModel]> {
         return store
+    }
+    
+    func createWord(definition: String, meaning: String) -> Bool {
+        let word = Word(definition: definition, meaning: meaning, parentIdentity: parentIdentity)
+        
+        if let entity = NSEntityDescription.entity(forEntityName: "Word", in: context) {
+            let entityObject = NSManagedObject(entity: entity, insertInto: context)
+            word.update(entityObject)
+            
+            
+            sectionModel.items.append(word)
+            sectionModel.items.sort(by: { $0.definition < $1.definition })
+            store.onNext([sectionModel])
+            
+            return true
+        }
+        
+        return false
     }
     
     func update(word: Word, definition: String, meaning: String) -> Observable<Word> {

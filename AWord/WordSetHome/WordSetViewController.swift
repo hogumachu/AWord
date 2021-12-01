@@ -8,8 +8,10 @@ class WordSetViewController: UIViewController {
         let viewModel: WordSetViewModel
     }
     
-    let viewModel: WordSetViewModel
     
+    // MARK: - Properties
+    
+    let viewModel: WordSetViewModel
     private let disposeBag = DisposeBag()
     private let setTableView: UITableView = {
         let tableView = UITableView()
@@ -30,6 +32,8 @@ class WordSetViewController: UIViewController {
         return button
     }()
     
+    // MARK: - Lifecycle
+    
     init(dependency: Dependency) {
         self.viewModel = dependency.viewModel
         super.init(nibName: nil, bundle: nil)
@@ -45,6 +49,8 @@ class WordSetViewController: UIViewController {
         bind()
     }
     
+    // MARK: - Configure
+    
     private func configureUI() {
         navigationItem.title = "AWord"
         
@@ -54,7 +60,7 @@ class WordSetViewController: UIViewController {
         view.addSubview(createButton)
         
         setTableView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.bottom.equalTo(createButton.snp.top).offset(-10)
         }
         
@@ -64,6 +70,8 @@ class WordSetViewController: UIViewController {
             $0.width.height.equalTo(30)
         }
     }
+    
+    // MARK: - Bind
     
     private func bind() {
         setTableView.rx.setDelegate(self)

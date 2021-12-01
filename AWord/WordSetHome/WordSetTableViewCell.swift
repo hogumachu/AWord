@@ -4,6 +4,8 @@ import SnapKit
 class WordSetTableViewCell: UITableViewCell {
     static let identifier = "WordSetTableViewCellIdentifier"
     
+    // MARK: - Properties
+    
     private let cardView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +31,8 @@ class WordSetTableViewCell: UITableViewCell {
         return label
     }()
     
+    // MARK: - Lifecycle
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()
@@ -37,6 +41,9 @@ class WordSetTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    // MARK: - Configure
     
     private func configureUI() {
         backgroundColor = _backgroundColor
@@ -64,7 +71,6 @@ class WordSetTableViewCell: UITableViewCell {
             $0.bottom.equalToSuperview().offset(-5)
         }
     }
-    
     
     func setItem(item: WordSet) {
         titleLabel.text = item.title

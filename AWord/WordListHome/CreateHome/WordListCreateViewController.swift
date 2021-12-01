@@ -7,6 +7,8 @@ class WordListCreateViewController: UIViewController {
         let viewModel: WordListCreateViewModel
     }
     
+    // MARK: - Properties
+    
     let viewModel: WordListCreateViewModel
     private let disposeBag = DisposeBag()
     private let headerStackView: UIStackView = {
@@ -52,6 +54,8 @@ class WordListCreateViewController: UIViewController {
         return textField
     }()
     
+    // MARK: - Lifecycle
+    
     init(dependency: Dependency) {
         self.viewModel = dependency.viewModel
         super.init(nibName: nil, bundle: nil)
@@ -65,7 +69,11 @@ class WordListCreateViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         bind()
+        
+        wordTextField.becomeFirstResponder()
     }
+    
+    // MARK: - Configure
     
     private func configureUI() {
         view.backgroundColor = .white
@@ -95,6 +103,8 @@ class WordListCreateViewController: UIViewController {
             $0.top.equalTo(wordTextField.snp.bottom).offset(10)
         }
     }
+    
+    // MARK: - Bind
     
     private func bind() {
         createButton.rx.tap

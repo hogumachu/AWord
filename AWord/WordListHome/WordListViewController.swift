@@ -8,22 +8,31 @@ class WordListViewController: UIViewController {
         let viewModel: WordListViewModel
     }
     
-    let viewModel: WordListViewModel
+    // MARK: - Properties
     
+    let viewModel: WordListViewModel
     private let disposeBag = DisposeBag()
     private let wordListTableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(WordListTableViewCell.self, forCellReuseIdentifier: WordListTableViewCell.identifier)
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = _backgroundColor
         return tableView
     }()
     private let createButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("생성", for: .normal)
-        button.setTitleColor(.systemPink, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.contentMode = .scaleToFill
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.setImage(_plusCircle, for: .normal)
+        button.setImage(_plusCircleFill, for: .highlighted)
         return button
     }()
+    
+    // MARK: - Lifecycle
     
     init(dependency: Dependency) {
         self.viewModel = dependency.viewModel
@@ -34,28 +43,33 @@ class WordListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
         bind()
     }
     
+    // MARK: - Configure
+    
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = _backgroundColor
         
         view.addSubview(wordListTableView)
         view.addSubview(createButton)
         
         wordListTableView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.bottom.equalTo(createButton.snp.top).offset(-10)
         }
         
         createButton.snp.makeConstraints {
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.width.height.equalTo(30)
         }
     }
+    
+    // MARK: - Bind
     
     private func bind() {
         wordListTableView.rx.setDelegate(self)

@@ -7,6 +7,8 @@ class WordSetCreateViewController: UIViewController {
         let viewModel: WordSetCreateViewModel
     }
     
+    // MARK: - Properties
+    
     let viewModel: WordSetCreateViewModel
     private let disposeBag = DisposeBag()
     private let headerStackView: UIStackView = {
@@ -49,6 +51,9 @@ class WordSetCreateViewController: UIViewController {
         textField.placeholder = "제목을 입력하세요"
         return textField
     }()
+    
+    // MARK: - Lifecycle
+    
     init(dependency: Dependency) {
         self.viewModel = dependency.viewModel
         super.init(nibName: nil, bundle: nil)
@@ -62,10 +67,14 @@ class WordSetCreateViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         bind()
+        
+        titleTextField.becomeFirstResponder()
     }
     
+    // MARK: - Configure
+    
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = _backgroundColor
         
         view.addSubview(headerStackView)
         view.addSubview(titleTextField)
@@ -86,6 +95,8 @@ class WordSetCreateViewController: UIViewController {
             $0.top.equalTo(headerStackView.snp.bottom).offset(10)
         }
     }
+    
+    // MARK: - Bind
     
     private func bind() {
         createButton.rx.tap

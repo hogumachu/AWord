@@ -5,7 +5,6 @@ struct WordSet: Equatable, IdentifiableType {
     static func == (lhs: WordSet, rhs: WordSet) -> Bool {
         return lhs.identity == rhs.identity
     }
-    typealias Identity = String
     
     var identity: String
     var title: String
@@ -22,6 +21,8 @@ struct WordSet: Equatable, IdentifiableType {
         self.title = title
     }
 }
+
+// MARK: - CoreData
 
 extension WordSet {
     public static var entityName: String {

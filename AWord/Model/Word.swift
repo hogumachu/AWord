@@ -27,6 +27,8 @@ struct Word: Equatable, IdentifiableType {
     }
 }
 
+// MARK: - CoreData
+
 extension Word {
     public static var entityName: String {
         return "Word"
