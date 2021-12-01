@@ -3,16 +3,13 @@ import RxSwift
 import RxCocoa
 import CoreData
 
-class CoreDataWordSetStorage: WordSetStorageType {
+class WordSetStorage: WordSetStorageType {
     struct Dependency {
         let modelName: String
     }
     
-    let modelName: String
     
-    init(depedency: Dependency) {
-        self.modelName = depedency.modelName
-    }
+    let modelName: String
     
     private lazy var container: NSPersistentContainer = {
         let container = NSPersistentContainer(name: modelName)
@@ -24,11 +21,9 @@ class CoreDataWordSetStorage: WordSetStorageType {
         }
         return container
     }()
-    
     private var context: NSManagedObjectContext {
         return container.viewContext
     }
-    
     private lazy var wordSets: [WordSet] = {
         if let wordSets = try? context.fetch(WordSetEntity.fetchRequest()).map({ WordSet(entity: $0) }) {
             return wordSets
@@ -38,6 +33,14 @@ class CoreDataWordSetStorage: WordSetStorageType {
     }()
     
     private lazy var store = BehaviorSubject<[WordSet]>(value: wordSets)
+    
+    func setList() -> Observable<[WordSet]> {
+        return store
+    }
+    
+    init(depedency: Dependency) {
+        self.modelName = depedency.modelName
+    }
     
     func createSet(title: String) -> Bool {
         let wordSet = WordSet(title: title)
@@ -55,9 +58,7 @@ class CoreDataWordSetStorage: WordSetStorageType {
         return false
     }
     
-    func setList() -> Observable<[WordSet]> {
-        return store
-    }
+    
     
     func update(set: WordSet, title: String) -> Observable<WordSet> {
         let updated = WordSet(original: set, title: title)
@@ -73,10 +74,6 @@ class CoreDataWordSetStorage: WordSetStorageType {
         }
         
         return Observable.just(set)
-    }
-    
-    func append(at: String, word: Word) {
-        // ??
     }
     
     func delete(set: WordSet) -> Observable<WordSet> {
@@ -103,17 +100,8 @@ class CoreDataWordSetStorage: WordSetStorageType {
         }
     }
     
-    func delete(at: Int) {
-        // TODO
-    }
     
     func move(source: Int, destination: Int) {
         // TODO
     }
-    
-    func sectionModel(model: WordSet) -> WordSet {
-        return WordSet(title: "asdasd")
-    }
-    
-    
 }

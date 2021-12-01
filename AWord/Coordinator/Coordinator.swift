@@ -62,7 +62,7 @@ extension Coordinator {
         }
     }
     
-    private func sceneFactory(scene: Scene, model: Int) -> UIViewController {
+    private func sceneFactory(scene: Scene, title: String, model: String) -> UIViewController {
         switch scene {
         case .set:
             let setVC = wordSetViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: storage))))
@@ -71,12 +71,11 @@ extension Coordinator {
             let setCreateVC = wordSetCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: storage))))
             return setCreateVC
         case .list:
-            let coredataStorage = CoreDataWordStorage(dependency: .init(modelName: "AWord", title: "코어데이터"))
+            let coredataStorage = WordStorage(dependency: .init(modelName: "AWord", title: title, parentIdentity: model))
             let listVC = wordListViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: coredataStorage, model: 0))))
             return listVC
         case .listCreate:
-            let wordSet = storage.sectionModel(model: WordSet(title: "abc"))
-            let listStorage = MemoryStorage(dependency: .init(title: wordSet.title, setStorage: storage))
+            let listStorage = WordStorage(dependency: .init(modelName: "AWord", title: title, parentIdentity: model))
             let listCreateVC = wordListCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: listStorage))))
             return listCreateVC
         }
@@ -111,14 +110,13 @@ extension Coordinator {
         
     }
     
-    func push(at navigation: NavigationScene, scene: Scene, model: Int, animated: Bool) {
-        let viewController = sceneFactory(scene: scene, model: model)
+    func push(at navigation: NavigationScene, scene: Scene, title: String, model: String, animated: Bool) {
+        let viewController = sceneFactory(scene: scene, title: title, model: model)
         
         switch navigation {
         case .main:
             mainNavigationController.pushViewController(viewController, animated: animated)
         }
-        
     }
     
     func modal(at parentViewController: UIViewController, scene: Scene, animated: Bool) {

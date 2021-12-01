@@ -3,18 +3,21 @@ import RxSwift
 import RxCocoa
 import CoreData
 
-class CoreDataWordStorage: WordStorageType {
+class WordStorage: WordStorageType {
     struct Dependency {
         let modelName: String
         let title: String
+        let parentIdentity: String
     }
     
     let modelName: String
     var title: String
+    let parentIdentity: String
     
     init(dependency: Dependency) {
         self.modelName = dependency.modelName
         self.title = dependency.title
+        self.parentIdentity = dependency.parentIdentity
     }
     
     private lazy var container: NSPersistentContainer = {
@@ -33,7 +36,7 @@ class CoreDataWordStorage: WordStorageType {
     }
     
     func createWord(definition: String, meaning: String) -> Bool {
-        let word = Word(definition: definition, meaning: meaning)
+        let word = Word(definition: definition, meaning: meaning, parentIdentity: parentIdentity)
         
         if let entity = NSEntityDescription.entity(forEntityName: "Word", in: context) {
             let entityObject = NSManagedObject(entity: entity, insertInto: context)
@@ -50,6 +53,7 @@ class CoreDataWordStorage: WordStorageType {
     
     private lazy var sectionModel: WordSectionModel = {
         if let words = try? context.fetch(WordEntity.fetchRequest())
+            .filter({ $0.parentIdentity == parentIdentity })
             .map({ Word(entity: $0) }) {
                 return WordSectionModel(model: 0, items: words)
             }
@@ -95,10 +99,4 @@ class CoreDataWordStorage: WordStorageType {
             return Observable.error(error)
         }
     }
-    
-    func delete(at: Int) {
-        
-    }
-    
-    
 }

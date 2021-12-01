@@ -45,12 +45,7 @@ class WordListViewModel: WordStorableViewModelType {
         coordinator.modal(at: viewController, scene: .listCreate, sectionStorage: storage, animated: true)
     }
     
-    func delete(indexPath: IndexPath) {
-        storage.delete(at: indexPath.row)
-    }
-    
     func delete(word: Word) {
-        print(word)
         storage.delete(word: word)
     }
 }

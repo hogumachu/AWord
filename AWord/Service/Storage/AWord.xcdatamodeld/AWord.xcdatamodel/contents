@@ -5,6 +5,7 @@
         <attribute name="identity" optional="YES" attributeType="String"/>
         <attribute name="insertDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="meaning" optional="YES" attributeType="String"/>
+        <attribute name="parentIdentity" optional="YES" attributeType="String"/>
         <relationship name="wordSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WordSet" inverseName="word" inverseEntity="WordSet"/>
     </entity>
     <entity name="WordSet" representedClassName="WordSetEntity" syncable="YES" codeGenerationType="class">
@@ -14,7 +15,7 @@
         <relationship name="word" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Word" inverseName="wordSet" inverseEntity="Word"/>
     </entity>
     <elements>
-        <element name="Word" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="Word" positionX="-63" positionY="-18" width="128" height="119"/>
         <element name="WordSet" positionX="-481.8423461914062" positionY="-22.98397827148438" width="128" height="103"/>
     </elements>
 </model>

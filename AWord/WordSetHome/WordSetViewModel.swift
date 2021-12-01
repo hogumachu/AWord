@@ -44,24 +44,13 @@ class WordSetViewModel: WordSetStorableViewModelType {
         self.storage = dependency.storage
     }
     
-    func itemSelected(tableView: UITableView, indexPath: IndexPath) {
-        
+    func modelSelected(tableView: UITableView, model: WordSet, indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        coordinator.push(at: .main, scene: .list, model: indexPath.section, animated: true)
-        
+        coordinator.push(at: .main, scene: .list, title: model.title, model: model.identity, animated: true)
     }
-    
-    func modelSelected(model: WordSet) {
-        let entity = storage.sectionModel(model: model)
-    }
-    
     
     func create(_ viewController: UIViewController) {
         coordinator.modal(at: viewController, scene: .setCreate, animated: true)
-    }
-    
-    func delete(indexPath: IndexPath) {
-        storage.delete(at: indexPath.section)
     }
     
     func delete(wordSet: WordSet) {
