@@ -4,11 +4,28 @@ import SnapKit
 class WordSetTableViewCell: UITableViewCell {
     static let identifier = "WordSetTableViewCellIdentifier"
     
+    private let cardView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = _titleColor
+        view.layer.cornerRadius = 8
+        view.layer.cornerCurve = .continuous
+        return view
+    }()
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.textAlignment = .center
+        label.textColor = _backgroundColor
+        label.textAlignment = .left
+        label.font = .systemFont(ofSize: 30, weight: .bold)
+        return label
+    }()
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .systemGray
+        label.textAlignment = .right
+        label.font = .systemFont(ofSize: 10)
         return label
     }()
     
@@ -22,19 +39,35 @@ class WordSetTableViewCell: UITableViewCell {
     }
     
     private func configureUI() {
-        backgroundColor = .white
+        backgroundColor = _backgroundColor
         
-        addSubview(titleLabel)
+        addSubview(cardView)
+        cardView.addSubview(titleLabel)
+        cardView.addSubview(dateLabel)
+        
+        cardView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(5)
+            $0.leading.equalToSuperview().offset(10)
+            $0.trailing.equalToSuperview().offset(-10)
+            $0.bottom.equalToSuperview().offset(-5)
+            $0.height.equalTo(80)
+        }
         
         titleLabel.snp.makeConstraints {
-            $0.center.equalToSuperview()
-            $0.leading.equalToSuperview().offset(5)
+            $0.top.equalToSuperview().offset(5)
+            $0.leading.equalToSuperview().offset(10)
+            $0.trailing.equalToSuperview().offset(-10)
+        }
+        
+        dateLabel.snp.makeConstraints {
             $0.trailing.equalToSuperview().offset(-5)
+            $0.bottom.equalToSuperview().offset(-5)
         }
     }
     
     
     func setItem(item: WordSet) {
         titleLabel.text = item.title
+        dateLabel.text = DateHelper.shared.format(item.insertDate)
     }
 }

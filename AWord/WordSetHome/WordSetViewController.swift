@@ -15,20 +15,18 @@ class WordSetViewController: UIViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(WordSetTableViewCell.self, forCellReuseIdentifier: WordSetTableViewCell.identifier)
+        tableView.backgroundColor = _backgroundColor
+        tableView.separatorStyle = .none
         return tableView
     }()
     private let createButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("생성", for: .normal)
-        button.setTitleColor(.blue, for: .normal)
-        return button
-    }()
-    private let editButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("편집", for: .normal)
-        button.setTitleColor(.red, for: .normal)
+        button.contentMode = .scaleToFill
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.setImage(_plusCircle, for: .normal)
+        button.setImage(_plusCircleFill, for: .highlighted)
         return button
     }()
     
@@ -48,24 +46,22 @@ class WordSetViewController: UIViewController {
     }
     
     private func configureUI() {
-        view.backgroundColor = .white
+        navigationItem.title = "AWord"
+        
+        view.backgroundColor = _backgroundColor
         
         view.addSubview(setTableView)
         view.addSubview(createButton)
-        view.addSubview(editButton)
         
         setTableView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(createButton.snp.top).offset(-10)
         }
         
         createButton.snp.makeConstraints {
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
-        }
-        
-        editButton.snp.makeConstraints {
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.width.height.equalTo(30)
         }
     }
     
@@ -109,22 +105,10 @@ class WordSetViewController: UIViewController {
                 with: self,
                 onNext: { vc, _ in
                     vc.viewModel.create(vc)
+                    
                 }
             )
             .disposed(by: disposeBag)
-        
-        editButton.rx.tap
-            .bind(
-                with: self,
-                onNext: { vc, _ in
-                    vc.changeEditMode()
-                }
-            )
-            .disposed(by: disposeBag)
-    }
-    
-    private func changeEditMode() {
-        setTableView.setEditing(!setTableView.isEditing, animated: true)
     }
 }
 

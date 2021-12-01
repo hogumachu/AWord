@@ -17,6 +17,12 @@ class WordListTableViewCell: UITableViewCell {
         label.isHidden = true
         return label
     }()
+    private let dateLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .systemGray
+        return label
+    }()
     
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -31,6 +37,7 @@ class WordListTableViewCell: UITableViewCell {
     private func configureUI() {
         addSubview(definitionLabel)
         addSubview(meaningLabel)
+        addSubview(dateLabel)
         
         definitionLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
@@ -38,6 +45,10 @@ class WordListTableViewCell: UITableViewCell {
         
         meaningLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
+        }
+        
+        dateLabel.snp.makeConstraints {
+            $0.bottom.trailing.equalToSuperview()
         }
     }
     

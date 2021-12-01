@@ -20,8 +20,10 @@ class WordSetCreateViewController: UIViewController {
     private let createButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("생성", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitle("추가", for: .normal)
+        button.setTitleColor(_titleColor, for: .normal)
+        button.setTitleColor(.systemGray, for: .highlighted)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         return button
     }()
     private let cancelButton: UIButton = {
@@ -29,12 +31,15 @@ class WordSetCreateViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("취소", for: .normal)
         button.setTitleColor(.systemRed, for: .normal)
+        button.setTitleColor(.systemGray, for: .highlighted)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         return button
     }()
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "제목을 입력하세요"
+        label.font = .systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     private let titleTextField: UITextField = {
