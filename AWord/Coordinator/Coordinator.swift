@@ -47,6 +47,9 @@ class Coordinator {
 // MARK: Scene Transition
 
 extension Coordinator {
+    
+    // MARK: - Create Scene
+    
     private func sceneFactory(scene: Scene) -> UIViewController {
         switch scene {
         case .set:
@@ -91,7 +94,7 @@ extension Coordinator {
         }
     }
     
-    
+    // MARK: - Scene Transition
     func root(scene: Scene, animated: Bool) {
         let viewController = sceneFactory(scene: scene)
         
@@ -140,33 +143,5 @@ extension Coordinator {
     
     func dismiss(viewController: UIViewController, animated: Bool) {
         viewController.dismiss(animated: animated, completion: nil)
-    }
-}
-
-enum Scene {
-    case set
-    case setCreate
-    case list
-    case listCreate
-}
-
-enum Transition {
-    case root
-    case push
-    case modal
-}
-
-enum BackTransition {
-    case pop
-    case dismiss
-}
-
-enum NavigationScene {
-    case main
-}
-
-extension UIViewController {
-    var firstChildren: UIViewController {
-        return self.children.first ?? self
     }
 }
