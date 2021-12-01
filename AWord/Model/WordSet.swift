@@ -2,6 +2,9 @@ import RxDataSources
 import CoreData
 
 struct WordSet: Equatable, IdentifiableType {
+    static func == (lhs: WordSet, rhs: WordSet) -> Bool {
+        return lhs.identity == rhs.identity
+    }
     typealias Identity = String
     
     var identity: String

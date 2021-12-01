@@ -8,7 +8,6 @@ class WordSetStorage: WordSetStorageType {
         let modelName: String
     }
     
-    
     let modelName: String
     
     private lazy var container: NSPersistentContainer = {
@@ -25,7 +24,13 @@ class WordSetStorage: WordSetStorageType {
         return container.viewContext
     }
     private lazy var wordSets: [WordSet] = {
-        if let wordSets = try? context.fetch(WordSetEntity.fetchRequest()).map({ WordSet(entity: $0) }) {
+        let fetchRequest = NSFetchRequest<WordSetEntity>(entityName: "WordSet")
+        let sort = NSSortDescriptor(key: "title", ascending: true)
+        fetchRequest.sortDescriptors = [sort]
+        
+        if let wordSets = try? context
+            .fetch(fetchRequest)
+            .map({ WordSet(entity: $0) }) {
             return wordSets
         }
         
@@ -43,6 +48,10 @@ class WordSetStorage: WordSetStorageType {
     }
     
     func createSet(title: String) -> Bool {
+        if wordSets.contains(where: { $0.title == title }) {
+            return false
+        }
+        
         let wordSet = WordSet(title: title)
         
         if let entity = NSEntityDescription.entity(forEntityName: "WordSet", in: context) {
@@ -50,6 +59,7 @@ class WordSetStorage: WordSetStorageType {
             wordSet.update(entityObject)
             
             wordSets.append(wordSet)
+            wordSets.sort(by: { $0.title < $1.title })
             store.onNext(wordSets)
             
             return true
@@ -57,8 +67,6 @@ class WordSetStorage: WordSetStorageType {
         
         return false
     }
-    
-    
     
     func update(set: WordSet, title: String) -> Observable<WordSet> {
         let updated = WordSet(original: set, title: title)
@@ -100,8 +108,7 @@ class WordSetStorage: WordSetStorageType {
         }
     }
     
-    
     func move(source: Int, destination: Int) {
-        // TODO
+        
     }
 }

@@ -36,13 +36,16 @@ class WordStorage: WordStorageType {
     }
     
     func createWord(definition: String, meaning: String) -> Bool {
+        
         let word = Word(definition: definition, meaning: meaning, parentIdentity: parentIdentity)
         
         if let entity = NSEntityDescription.entity(forEntityName: "Word", in: context) {
             let entityObject = NSManagedObject(entity: entity, insertInto: context)
             word.update(entityObject)
             
+            
             sectionModel.items.append(word)
+            sectionModel.items.sort(by: { $0.definition < $1.definition })
             store.onNext([sectionModel])
             
             return true
@@ -52,7 +55,11 @@ class WordStorage: WordStorageType {
     }
     
     private lazy var sectionModel: WordSectionModel = {
-        if let words = try? context.fetch(WordEntity.fetchRequest())
+        let fetchRequest = NSFetchRequest<WordEntity>(entityName: "Word")
+        let sort = NSSortDescriptor(key: "definition", ascending: true)
+        fetchRequest.sortDescriptors = [sort]
+        
+        if let words = try? context.fetch(fetchRequest)
             .filter({ $0.parentIdentity == parentIdentity })
             .map({ Word(entity: $0) }) {
                 return WordSectionModel(model: 0, items: words)

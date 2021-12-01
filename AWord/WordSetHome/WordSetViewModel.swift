@@ -21,7 +21,7 @@ class WordSetViewModel: WordSetStorableViewModelType {
             return cell
         }
         ds.canEditRowAtIndexPath = { _, _ in return true }
-        ds.canMoveRowAtIndexPath = { _, _ in return true}
+//        ds.canMoveRowAtIndexPath = { _, _ in return true}
         return ds
     }()
     
