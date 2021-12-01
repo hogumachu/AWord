@@ -38,9 +38,10 @@
 		F15CAAC42755EA7100CFAC4D /* WordSetCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAC32755EA7100CFAC4D /* WordSetCreateViewModel.swift */; };
 		F15CAAC82755F48100CFAC4D /* WordListCreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAC72755F48100CFAC4D /* WordListCreateViewController.swift */; };
 		F15CAACA2755F48B00CFAC4D /* WordListCreateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAC92755F48B00CFAC4D /* WordListCreateViewModel.swift */; };
-		F15CAACC27561DFA00CFAC4D /* CoreDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAACB27561DFA00CFAC4D /* CoreDataStorage.swift */; };
+		F15CAACC27561DFA00CFAC4D /* CoreDataWordStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAACB27561DFA00CFAC4D /* CoreDataWordStorage.swift */; };
 		F15CAACF275620C300CFAC4D /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAACE275620C300CFAC4D /* RxCocoa */; };
 		F15CAAD1275620C300CFAC4D /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F15CAAD0275620C300CFAC4D /* RxSwift */; };
+		F15CAAD3275759D500CFAC4D /* CoreDataWordSetStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAD2275759D500CFAC4D /* CoreDataWordSetStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,7 +95,8 @@
 		F15CAAC32755EA7100CFAC4D /* WordSetCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSetCreateViewModel.swift; sourceTree = "<group>"; };
 		F15CAAC72755F48100CFAC4D /* WordListCreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListCreateViewController.swift; sourceTree = "<group>"; };
 		F15CAAC92755F48B00CFAC4D /* WordListCreateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordListCreateViewModel.swift; sourceTree = "<group>"; };
-		F15CAACB27561DFA00CFAC4D /* CoreDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStorage.swift; sourceTree = "<group>"; };
+		F15CAACB27561DFA00CFAC4D /* CoreDataWordStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataWordStorage.swift; sourceTree = "<group>"; };
+		F15CAAD2275759D500CFAC4D /* CoreDataWordSetStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataWordSetStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -221,7 +223,8 @@
 			isa = PBXGroup;
 			children = (
 				F15CAA512754F43100CFAC4D /* AWord.xcdatamodeld */,
-				F15CAACB27561DFA00CFAC4D /* CoreDataStorage.swift */,
+				F15CAACB27561DFA00CFAC4D /* CoreDataWordStorage.swift */,
+				F15CAAD2275759D500CFAC4D /* CoreDataWordSetStorage.swift */,
 			);
 			path = Storage;
 			sourceTree = "<group>";
@@ -450,10 +453,11 @@
 				F15CAAB52755C9D000CFAC4D /* WordStorableViewModelType.swift in Sources */,
 				F15CAA4B2754F43100CFAC4D /* SceneDelegate.swift in Sources */,
 				F15CAAC22755EA5600CFAC4D /* WordSetCreateViewController.swift in Sources */,
-				F15CAACC27561DFA00CFAC4D /* CoreDataStorage.swift in Sources */,
+				F15CAACC27561DFA00CFAC4D /* CoreDataWordStorage.swift in Sources */,
 				F15CAAAD2755C95400CFAC4D /* WordSet.swift in Sources */,
 				F15CAACA2755F48B00CFAC4D /* WordListCreateViewModel.swift in Sources */,
 				F15CAAB72755CA0400CFAC4D /* ViewModelType.swift in Sources */,
+				F15CAAD3275759D500CFAC4D /* CoreDataWordSetStorage.swift in Sources */,
 				F15CAABD2755D2B800CFAC4D /* WordSetStorableViewModelType.swift in Sources */,
 				F15CAABF2755D3BF00CFAC4D /* WordSetTableViewCell.swift in Sources */,
 				F15CAAA1275510A300CFAC4D /* WordListViewModel.swift in Sources */,

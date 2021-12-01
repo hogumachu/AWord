@@ -3,7 +3,7 @@ import RxSwift
 import RxCocoa
 import CoreData
 
-class CoreDataStorage: WordStorageType {
+class CoreDataWordStorage: WordStorageType {
     struct Dependency {
         let modelName: String
         let title: String

@@ -17,5 +17,5 @@ protocol WordSetStorageType {
     
     func move(source: Int, destination: Int)
     
-    func sectionModel(model: Int) -> WordSet
+    func sectionModel(model: WordSet) -> WordSet
 }

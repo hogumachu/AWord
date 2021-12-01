@@ -10,16 +10,12 @@ struct Word: Equatable, IdentifiableType {
     var meaning: String
     var insertDate: Date
     var identity: String
-    var correct: Int16
-    var wrong: Int16
     
     init(definition: String, meaning: String, insertDate: Date = Date()) {
         self.definition = definition
         self.meaning = meaning
         self.insertDate = insertDate
         self.identity = "\(insertDate.timeIntervalSinceReferenceDate)"
-        self.correct = 0
-        self.wrong = 0
     }
     
     init(original: Word, definition: String, meaning: String) {
@@ -34,26 +30,18 @@ extension Word {
         return "Word"
     }
     
-    static var primaryAttributeName: String {
-        return "identity"
-    }
-    
     init(entity: NSManagedObject) {
         definition = (entity.value(forKey: "definition") as! String)
         meaning = (entity.value(forKey: "meaning") as! String)
         insertDate = entity.value(forKey: "insertDate") as! Date
         identity = "\(insertDate.timeIntervalSinceReferenceDate)"
-        correct = entity.value(forKey: "correct") as! Int16
-        wrong = entity.value(forKey: "wrong") as! Int16
     }
     
     func update(_ entity: NSManagedObject) {
-        entity.setValue(correct, forKey: "correct")
         entity.setValue(definition, forKey: "definition")
         entity.setValue(identity, forKey: "identity")
         entity.setValue(insertDate, forKey: "insertDate")
         entity.setValue(meaning, forKey: "meaning")
-        entity.setValue(wrong, forKey: "wrong")
         
         do {
             try entity.managedObjectContext?.save()

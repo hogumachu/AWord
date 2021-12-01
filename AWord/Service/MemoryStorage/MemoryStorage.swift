@@ -4,19 +4,19 @@ import Foundation
 class MemoryStorage: WordStorageType {
     struct Dependency {
         let title: String
-        let sectionModel: WordSectionModel
         let setStorage: WordSetStorageType
     }
     
     let title: String
-    var sectionModel: WordSectionModel
     let setStorage: WordSetStorageType
     
     init(dependency: Dependency) {
         self.title = dependency.title
-        self.sectionModel = dependency.sectionModel
         self.setStorage = dependency.setStorage
     }
+    
+    
+    private lazy var sectionModel: WordSectionModel = WordSectionModel(model: 0, items: [])
     
     private lazy var store = BehaviorSubject<[WordSectionModel]>(value: [sectionModel])
     

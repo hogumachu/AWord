@@ -77,11 +77,11 @@ class WordSetViewController: UIViewController {
             .bind(to: setTableView.rx.items(dataSource: viewModel.dataSource))
             .disposed(by: disposeBag)
         
-        setTableView.rx.itemSelected
+        setTableView.rx.modelSelected(WordSet.self)
             .bind(
                 with: self,
-                onNext: { vc, indexPath in
-                    vc.viewModel.itemSelected(tableView: vc.setTableView, indexPath: indexPath)
+                onNext: { vc, wordSet in
+                    vc.viewModel.modelSelected(model: wordSet)
                 }
             )
             .disposed(by: disposeBag)

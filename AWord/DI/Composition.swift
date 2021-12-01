@@ -6,7 +6,7 @@ struct AppDependency {
 
 extension AppDependency {
     static func execute(window: UIWindow) -> AppDependency {
-        let storage = MemorySetStorage()
+        let storage = CoreDataWordSetStorage(depedency: .init(modelName: "AWord"))
         
         let wordSetViewControllerFactory: (WordSetViewController.Dependency) -> WordSetViewController = { dependency in
             return .init(dependency: dependency)

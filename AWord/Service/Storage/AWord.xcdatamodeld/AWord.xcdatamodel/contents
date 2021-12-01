@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19461" systemVersion="21A559" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Word" representedClassName="WordEntity" syncable="YES" codeGenerationType="class">
-        <attribute name="correct" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="definition" optional="YES" attributeType="String"/>
         <attribute name="identity" optional="YES" attributeType="String"/>
         <attribute name="insertDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="meaning" optional="YES" attributeType="String"/>
-        <attribute name="wrong" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="wordSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WordSet" inverseName="word" inverseEntity="WordSet"/>
     </entity>
-    <entity name="WordSet" representedClassName="WordSetEntity" syncable="YES" codeGenerationType="class"/>
+    <entity name="WordSet" representedClassName="WordSetEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="identity" optional="YES" attributeType="String"/>
+        <attribute name="insertDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="word" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Word" inverseName="wordSet" inverseEntity="Word"/>
+    </entity>
     <elements>
-        <element name="Word" positionX="-63" positionY="-18" width="128" height="133"/>
-        <element name="WordSet" positionX="-528.423095703125" positionY="-69.133544921875" width="128" height="43"/>
+        <element name="Word" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="WordSet" positionX="-481.8423461914062" positionY="-22.98397827148438" width="128" height="103"/>
     </elements>
 </model>

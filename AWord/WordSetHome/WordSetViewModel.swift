@@ -51,6 +51,11 @@ class WordSetViewModel: WordSetStorableViewModelType {
         
     }
     
+    func modelSelected(model: WordSet) {
+        let entity = storage.sectionModel(model: model)
+    }
+    
+    
     func create(_ viewController: UIViewController) {
         coordinator.modal(at: viewController, scene: .setCreate, animated: true)
     }

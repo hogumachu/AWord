@@ -47,69 +47,6 @@ class Coordinator {
 // MARK: Scene Transition
 
 extension Coordinator {
-//    func transition(scene: Scene, transition: Transition, animated: Bool) {
-//
-//        let viewController = sceneFactory(scene: scene)
-//
-//        switch transition {
-//        case .root:
-//            mainNavigationController.setViewControllers([viewController], animated: animated)
-//            window.rootViewController = mainNavigationController
-//            window.makeKeyAndVisible()
-//        case .push:
-//            mainNavigationController.pushViewController(viewController, animated: animated)
-//        case .modal:
-//            currentViewController?.present(viewController, animated: animated, completion: nil)
-//        }
-//    }
-//    
-//    func transition(scene: Scene, transition: Transition, model: Int, animated: Bool) {
-//        let viewController = sceneFactory(scene: scene, model: model)
-//        
-//        switch transition {
-//        case .root:
-//            window.rootViewController = viewController
-//            currentViewController = viewController
-//            window.makeKeyAndVisible()
-//        case .push:
-//            mainNavigationController.pushViewController(viewController, animated: true)
-//        case .modal:
-//            currentViewController?.present(viewController, animated: true, completion: nil)
-//        }
-//    }
-//    
-//    func transition(scene: Scene, transition: Transition, sectionStorage: WordStorageType, animated: Bool) {
-//        let viewController = sceneFactory(scene: scene, sectionStorage: sectionStorage)
-//        
-//        switch transition {
-//        case .root:
-//            window.rootViewController = viewController
-//            currentViewController = viewController
-//            window.makeKeyAndVisible()
-//        case .push:
-//            mainNavigationController.pushViewController(viewController, animated: true)
-//        case .modal:
-//            currentViewController?.present(viewController, animated: true, completion: nil)
-//        }
-//    }
-//    
-//    func backTransition(transition: BackTransition, animated: Bool) {
-//        switch transition {
-//        case .pop:
-//            guard mainNavigationController.popViewController(animated: animated) != nil else {
-//                return
-//            }
-//            
-//            currentViewController = mainNavigationController.viewControllers.last!
-//        case .dismiss:
-//            if let presentVC = currentViewController {
-//                presentVC.dismiss(animated: animated) { [weak self] in
-//                    self?.currentViewController = presentVC.firstChildren
-//                }
-//            }
-//        }
-//    }
-    
     private func sceneFactory(scene: Scene) -> UIViewController {
         switch scene {
         case .set:
@@ -134,12 +71,12 @@ extension Coordinator {
             let setCreateVC = wordSetCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: storage))))
             return setCreateVC
         case .list:
-            let coredataStorage = CoreDataStorage(dependency: .init(modelName: "AWord", title: "코어데이텨"))
+            let coredataStorage = CoreDataWordStorage(dependency: .init(modelName: "AWord", title: "코어데이터"))
             let listVC = wordListViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: coredataStorage, model: 0))))
             return listVC
         case .listCreate:
-            let wordSet = storage.sectionModel(model: model)
-            let listStorage = MemoryStorage(dependency: .init(title: wordSet.title, sectionModel: wordSet.sectionModel, setStorage: storage))
+            let wordSet = storage.sectionModel(model: WordSet(title: "abc"))
+            let listStorage = MemoryStorage(dependency: .init(title: wordSet.title, setStorage: storage))
             let listCreateVC = wordListCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: listStorage))))
             return listCreateVC
         }

@@ -5,40 +5,13 @@ class MemorySetStorage: WordSetStorageType {
     
     private var MOCK = [
         WordSet(
-            title: "Day 1",
-            sectionModel:
-                WordSectionModel(
-                    model: 0,
-                    items: [
-                        Word(definition: "A", meaning: "에이", insertDate: Date().addingTimeInterval(-10)),
-                        Word(definition: "B", meaning: "비", insertDate: Date().addingTimeInterval(-20)),
-                        Word(definition: "C", meaning: "씨", insertDate: Date().addingTimeInterval(-30)),
-                    ]
-                )
+            title: "Day 1"
         ),
         WordSet(
-            title: "Day 2",
-            sectionModel:
-                WordSectionModel(
-                    model: 1,
-                    items: [
-                        Word(definition: "D", meaning: "디", insertDate: Date().addingTimeInterval(-40)),
-                        Word(definition: "E", meaning: "이", insertDate: Date().addingTimeInterval(-50)),
-                        Word(definition: "F", meaning: "에프", insertDate: Date().addingTimeInterval(-60)),
-                    ]
-                )
+            title: "Day 2"
         ),
         WordSet(
-            title: "Day 3",
-            sectionModel:
-                WordSectionModel(
-                    model: 2,
-                    items: [
-                        Word(definition: "G", meaning: "지", insertDate: Date().addingTimeInterval(-70)),
-                        Word(definition: "H", meaning: "에이치", insertDate: Date().addingTimeInterval(-80)),
-                        Word(definition: "I", meaning: "아이", insertDate: Date().addingTimeInterval(-90)),
-                    ]
-                )
+            title: "Day 3"
         ),
     ]
     
@@ -56,7 +29,7 @@ class MemorySetStorage: WordSetStorageType {
             return false
         }
         
-        let wordSet = WordSet(title: title, sectionModel: WordSectionModel(model: sectionModels.count, items: []))
+        let wordSet = WordSet(title: title)
         
         sectionModels.append(wordSet)
         store.onNext(sectionModels)
@@ -77,7 +50,6 @@ class MemorySetStorage: WordSetStorageType {
     
     func append(at title: String, word: Word) {
         if let index = sectionModels.firstIndex(where: { $0.identity == title }) {
-            sectionModels[index].sectionModel.items.append(word)
             store.onNext(sectionModels)
         }
     }
@@ -108,7 +80,7 @@ class MemorySetStorage: WordSetStorageType {
         store.onNext(sectionModels)
     }
     
-    func sectionModel(model: Int) -> WordSet {
-        return sectionModels[model]
+    func sectionModel(model: WordSet) -> WordSet {
+        return model
     }
 }
