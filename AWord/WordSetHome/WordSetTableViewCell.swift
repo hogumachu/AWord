@@ -12,6 +12,12 @@ class WordSetTableViewCell: UITableViewCell {
         view.backgroundColor = _titleColor
         view.layer.cornerRadius = 8
         view.layer.cornerCurve = .continuous
+        
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowRadius = 2
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 6, height: 6)
+        view.layer.masksToBounds = false
         return view
     }()
     private let titleLabel: UILabel = {

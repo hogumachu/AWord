@@ -22,8 +22,10 @@ class WordListCreateViewController: UIViewController {
     private let createButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("생성", for: .normal)
-        button.setTitleColor(.systemBlue, for: .normal)
+        button.setTitle("추가", for: .normal)
+        button.setTitleColor(_titleColor, for: .normal)
+        button.setTitleColor(.systemGray, for: .highlighted)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         return button
     }()
     private let cancelButton: UIButton = {
@@ -31,26 +33,31 @@ class WordListCreateViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("취소", for: .normal)
         button.setTitleColor(.systemRed, for: .normal)
+        button.setTitleColor(.systemGray, for: .highlighted)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         return button
     }()
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "단어를 입력하세요"
+        label.font = .systemFont(ofSize: 20, weight: .bold)
         return label
     }()
     private let wordTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
-        textField.placeholder = "단어를 입력하세요"
+        textField.attributedPlaceholder = NSAttributedString(string: "단어를 입력하세요", attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
+        textField.backgroundColor = .white
         return textField
     }()
     private let meaningTextField: UITextField = {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
-        textField.placeholder = "뜻을 입력하세요"
+        textField.attributedPlaceholder = NSAttributedString(string: "뜻을 입력하세요", attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
+        textField.backgroundColor = .white
         return textField
     }()
     
@@ -76,7 +83,7 @@ class WordListCreateViewController: UIViewController {
     // MARK: - Configure
     
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = _backgroundColor
         
         view.addSubview(headerStackView)
         view.addSubview(wordTextField)

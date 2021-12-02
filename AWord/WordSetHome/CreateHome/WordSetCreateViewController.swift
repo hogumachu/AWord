@@ -48,7 +48,8 @@ class WordSetCreateViewController: UIViewController {
         let textField = UITextField()
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.borderStyle = .roundedRect
-        textField.placeholder = "제목을 입력하세요"
+        textField.attributedPlaceholder = NSAttributedString(string: "제목을 입력하세요", attributes: [NSAttributedString.Key.foregroundColor : UIColor.systemGray])
+        textField.backgroundColor = .white
         return textField
     }()
     

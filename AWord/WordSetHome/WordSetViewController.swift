@@ -47,6 +47,9 @@ class WordSetViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         bind()
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = _titleColor
+        navigationItem.backBarButtonItem = backBarButtonItem
     }
     
     // MARK: - Configure

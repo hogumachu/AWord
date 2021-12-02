@@ -11,8 +11,13 @@ class WordListTableViewCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 8
         view.layer.cornerCurve = .continuous
-        view.layer.borderWidth = 1
-        view.layer.borderColor = _titleColor.cgColor
+        view.backgroundColor = _lightBackgroundColor
+        
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowRadius = 2
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.masksToBounds = false
         return view
     }()
     private let flipCardView: UIView = {
@@ -21,8 +26,13 @@ class WordListTableViewCell: UITableViewCell {
         view.isHidden = true
         view.layer.cornerRadius = 8
         view.layer.cornerCurve = .continuous
-        view.layer.borderWidth = 1
-        view.layer.borderColor = _titleColor.cgColor
+        view.backgroundColor = _lightBackgroundColor
+        
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowRadius = 2
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.masksToBounds = false
         return view
     }()
     private let definitionLabel: UILabel = {
@@ -64,6 +74,7 @@ class WordListTableViewCell: UITableViewCell {
     // MARK: - Configure
     
     private func configureUI() {
+        backgroundColor = _backgroundColor
         addSubview(cardView)
         addSubview(flipCardView)
         
