@@ -31,6 +31,17 @@ class WordListViewController: UIViewController {
         button.setImage(_plusCircleFill, for: .highlighted)
         return button
     }()
+    private let testButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.contentMode = .scaleToFill
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        button.setImage(_plusCircle, for: .normal)
+        button.setImage(_plusCircleFill, for: .highlighted)
+        return button
+    }()
     
     // MARK: - Lifecycle
     
@@ -56,6 +67,7 @@ class WordListViewController: UIViewController {
         
         view.addSubview(wordListTableView)
         view.addSubview(createButton)
+        view.addSubview(testButton)
         
         wordListTableView.snp.makeConstraints {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -64,6 +76,12 @@ class WordListViewController: UIViewController {
         
         createButton.snp.makeConstraints {
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.width.height.equalTo(30)
+        }
+        
+        testButton.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
             $0.width.height.equalTo(30)
         }
@@ -106,7 +124,18 @@ class WordListViewController: UIViewController {
             )
             .disposed(by: disposeBag)
         
+        testButton.rx.tap
+            .bind(
+                with: viewModel,
+                onNext: { vm, _ in
+                    vm.test()
+                }
+            )
+            .disposed(by: disposeBag)
+        
         navigationItem.title = viewModel.storage.title
+        
+        
     }
 }
 

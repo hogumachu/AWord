@@ -35,6 +35,13 @@ class WordListViewModel: WordStorableViewModelType {
         return storage.wordList()
     }
     
+    func words() -> Observable<[Word]> {
+        return wordList
+            .map {
+                $0[0].items
+            }
+    }
+    
     func itemSelected(tableView: UITableView, at indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as? WordListTableViewCell
         cell?.flip()
@@ -47,5 +54,9 @@ class WordListViewModel: WordStorableViewModelType {
     
     func delete(word: Word) {
         storage.delete(word: word)
+    }
+    
+    func test() {
+        coordinator.push(at: .main, scene: .test, wordsObservable: words(), animated: true)
     }
 }
