@@ -20,6 +20,9 @@ extension AppDependency {
         let wordListCreateViewControllerFactory: (WordListCreateViewController.Dependency) -> WordListCreateViewController = { dependency in
             return .init(dependency: dependency)
         }
+        let testViewControllerFactory: (TestViewController.Dependency) -> TestViewController = { dependency in
+            return .init(dependency: dependency)
+        }
         
         return .init(
             coordinator:
@@ -32,7 +35,8 @@ extension AppDependency {
                             wordSetViewControllerFactory: wordSetViewControllerFactory,
                             wordSetCreateViewControllerFactory: wordSetCreateViewControllerFactory,
                             wordListViewControllerFactory: wordListViewControllerFactory,
-                            wordListCreateViewControllerFactory: wordListCreateViewControllerFactory
+                            wordListCreateViewControllerFactory: wordListCreateViewControllerFactory,
+                            testViewControllerFactory: testViewControllerFactory
                         )
                     )
         )

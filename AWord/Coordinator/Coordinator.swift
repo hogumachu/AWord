@@ -1,4 +1,6 @@
 import UIKit
+import RxSwift
+
 class Coordinator {
     
     // MARK: Dependency
@@ -18,6 +20,8 @@ class Coordinator {
         let wordSetCreateViewControllerFactory: (WordSetCreateViewController.Dependency) -> WordSetCreateViewController
         let wordListViewControllerFactory: (WordListViewController.Dependency) -> WordListViewController
         let wordListCreateViewControllerFactory: (WordListCreateViewController.Dependency) -> WordListCreateViewController
+        
+        let testViewControllerFactory: (TestViewController.Dependency) -> TestViewController
     }
     
     let mainNavigationController: UINavigationController = {
@@ -30,6 +34,8 @@ class Coordinator {
     let wordListViewControllerFactory: (WordListViewController.Dependency) -> WordListViewController
     let wordListCreateViewControllerFactory: (WordListCreateViewController.Dependency) -> WordListCreateViewController
     
+    let testViewControllerFactory: (TestViewController.Dependency) -> TestViewController
+    
     // MARK: Init
     
     init(dependency: Dependency, sceneDependency: SceneDependency) {
@@ -40,6 +46,8 @@ class Coordinator {
         self.wordSetCreateViewControllerFactory = sceneDependency.wordSetCreateViewControllerFactory
         self.wordListViewControllerFactory = sceneDependency.wordListViewControllerFactory
         self.wordListCreateViewControllerFactory = sceneDependency.wordListCreateViewControllerFactory
+        
+        self.testViewControllerFactory = sceneDependency.testViewControllerFactory
     }
     
 }
@@ -58,9 +66,7 @@ extension Coordinator {
         case .setCreate:
             let setCreateVC = wordSetCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: storage))))
             return setCreateVC
-        case .list:
-            return UIViewController()
-        case .listCreate:
+        default:
             return UIViewController()
         }
     }
@@ -81,6 +87,8 @@ extension Coordinator {
             let listStorage = WordStorage(dependency: .init(modelName: "AWord", title: title, parentIdentity: model))
             let listCreateVC = wordListCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: listStorage))))
             return listCreateVC
+        default:
+            return UIViewController()
         }
     }
     
@@ -89,6 +97,16 @@ extension Coordinator {
         case .listCreate:
             let listCreateVC = wordListCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: sectionStorage))))
             return listCreateVC
+        default:
+            return UIViewController()
+        }
+    }
+    
+    private func sceneFactory(scene: Scene, wordsObservable: Observable<[Word]>, animated: Bool) -> UIViewController {
+        switch scene {
+        case .test:
+            let testVC = testViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, words: wordsObservable))))
+            return testVC
         default:
             return UIViewController()
         }
@@ -110,11 +128,19 @@ extension Coordinator {
         case .main:
             mainNavigationController.pushViewController(viewController, animated: animated)
         }
-        
     }
     
     func push(at navigation: NavigationScene, scene: Scene, title: String, model: String, animated: Bool) {
         let viewController = sceneFactory(scene: scene, title: title, model: model)
+        
+        switch navigation {
+        case .main:
+            mainNavigationController.pushViewController(viewController, animated: animated)
+        }
+    }
+    
+    func push(at navigation: NavigationScene, scene: Scene, wordsObservable: Observable<[Word]>, animated: Bool) {
+        let viewController = sceneFactory(scene: scene, wordsObservable: wordsObservable, animated: animated)
         
         switch navigation {
         case .main:
