@@ -13,6 +13,8 @@ class TestViewModel: ViewModelType {
     private var page: Int = 1
     lazy var testObservable = BehaviorSubject<TestWord?>(value: nil)
     lazy var hasNext = BehaviorSubject<Bool>(value: false)
+    lazy var isRight = BehaviorSubject<TestResult>(value: .normal)
+    lazy var title = BehaviorSubject<String>(value: "")
     
     init(dependency: Dependency) {
         self.coordinator = dependency.coordinator
@@ -44,6 +46,8 @@ class TestViewModel: ViewModelType {
             self.testWords = testWords
             testObservable.onNext(testWords[0])
             hasNext.onNext(true)
+            
+            title.onNext("1 / \(testWords.count)")
         }
     }
     
@@ -55,6 +59,21 @@ class TestViewModel: ViewModelType {
         if page == testWords.count {
             hasNext.onNext(false)
         }
+        isRight.onNext(.normal)
+        title.onNext("\(page) / \(testWords.count)")
     }
     
+    func exampleDidTap(meaning: String?) {
+        if let meaning = meaning, meaning == testWords[page - 1].problem.meaning {
+            isRight.onNext(.right)
+        } else {
+            isRight.onNext(.wrong)
+        }
+    }
+}
+
+enum TestResult {
+    case normal
+    case right
+    case wrong
 }

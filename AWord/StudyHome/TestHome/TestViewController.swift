@@ -10,11 +10,20 @@ class TestViewController: UIViewController {
     
     let viewModel: TestViewModel
     private let disposeBag = DisposeBag()
+    private let problemView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 16
+        view.layer.cornerCurve = .continuous
+        view.backgroundColor = .systemGray5
+        return view
+    }()
     private let problemLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = _titleColor
         label.textAlignment = .center
+        label.font = .systemFont(ofSize: 25, weight: .bold)
         return label
     }()
     private let exampleStackView: UIStackView = {
@@ -22,15 +31,9 @@ class TestViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.distribution = .fillEqually
-        stack.alignment = .center
+        stack.alignment = .fill
+        stack.spacing = 5
         return stack
-    }()
-    private let nextButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Next", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        return button
     }()
     
     init(dependency: Dependency) {
@@ -51,27 +54,29 @@ class TestViewController: UIViewController {
     private func configureUI() {
         view.backgroundColor = _backgroundColor
         
-        view.addSubview(problemLabel)
+        view.addSubview(problemView)
         view.addSubview(exampleStackView)
-        view.addSubview(nextButton)
         
+        problemView.addSubview(problemLabel)
         
-        problemLabel.snp.makeConstraints {
+        problemView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
             $0.bottom.equalTo(view.snp.centerY)
         }
         
-        exampleStackView.snp.makeConstraints {
-            $0.top.equalTo(problemLabel.snp.bottom).offset(10)
-            $0.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-60)
+        problemLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.leading.equalToSuperview().offset(5)
+            $0.trailing.equalToSuperview().offset(-5)
         }
         
-        nextButton.snp.makeConstraints {
-            $0.top.equalTo(exampleStackView.snp.bottom)
-            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
-            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+        exampleStackView.snp.makeConstraints {
+            $0.top.equalTo(problemView.snp.bottom).offset(10)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-10)
         }
     }
     
@@ -96,40 +101,75 @@ class TestViewController: UIViewController {
             )
             .disposed(by: disposeBag)
         
-        nextButton.rx.tap
+        viewModel.isRight
             .bind(
-                with: viewModel,
-                onNext: { vm, _ in
-                    vm.next()
+                with: self,
+                onNext: { vc, isRight in
+                    vc.flipProblemCard(isRight: isRight)
                 }
             )
             .disposed(by: disposeBag)
         
-        viewModel.hasNext
+        viewModel.title
             .bind(
-                with: nextButton,
-                onNext: { button, hasNext in
-                    button.isHidden = hasNext ? false : true
+                with: self,
+                onNext: { vc, title in
+                    vc.title = title
                 }
             )
             .disposed(by: disposeBag)
     }
     
+    private func flipProblemCard(isRight: TestResult) {
+        
+        // TODO: - Create Alert View
+        
+        switch isRight {
+        case .normal:
+            problemView.backgroundColor = .systemGray5
+        case .right:
+            problemView.backgroundColor = .systemBlue
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) { [weak self] in
+                self?.viewModel.next()
+            }
+        case .wrong:
+            problemView.backgroundColor = .systemPink
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) { [weak self] in
+                self?.viewModel.next()
+            }
+        }
+    }
+    
     private func setTestWords(testWord: TestWord) {
         problemLabel.text = "\(testWord.problem.definition)"
         
-        if exampleStackView.subviews.count != testWord.examples.count + 1 {
+        if exampleStackView.subviews.count != testWord.examples.count + 1{
             (testWord.examples + [testWord.problem])
-                .map { word -> UILabel in
-                    let label = UILabel()
-                    label.text = word.meaning
-                    label.textColor = _titleColor
-                    label.textAlignment = .center
-                    return label
+                .map { word -> UIButton in
+                    let button = UIButton()
+                    button.setTitle(word.meaning, for: .normal)
+                    button.setTitleColor(_titleColor, for: .normal)
+                    button.setTitleColor(_lightTitleColor, for: .highlighted)
+                    button.backgroundColor = .systemGray5
+                    button.layer.cornerRadius = 8
+                    button.layer.cornerCurve = .continuous
+                    
+                    button.rx.tap
+                        .bind(
+                            with: self,
+                            onNext: { vc, _ in
+                                vc.viewModel.exampleDidTap(meaning: button.titleLabel?.text)
+                            }
+                        )
+                        .disposed(by: disposeBag)
+                    
+                    return button
                 }
                 .shuffled()
-                .forEach { label in
-                    exampleStackView.addArrangedSubview(label)
+                .forEach { button in
+                    exampleStackView.addArrangedSubview(button)
                 }
         } else {
             (testWord.examples + [testWord.problem])
@@ -139,8 +179,8 @@ class TestViewController: UIViewController {
                 .shuffled()
                 .enumerated()
                 .forEach { (offset, element) in
-                    if let label = exampleStackView.arrangedSubviews[offset] as? UILabel {
-                        label.text = element
+                    if let button = exampleStackView.arrangedSubviews[offset] as? UIButton {
+                        button.setTitle(element, for: .normal)
                     }
                 }
         }
