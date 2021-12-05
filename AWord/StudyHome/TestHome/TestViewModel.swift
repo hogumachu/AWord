@@ -1,3 +1,4 @@
+import Foundation
 import RxSwift
 import RxCocoa
 
@@ -68,6 +69,17 @@ class TestViewModel: ViewModelType {
             isRight.onNext(.right)
         } else {
             isRight.onNext(.wrong)
+        }
+    }
+    
+    func testResultAlert(testReuslt: TestResult) {
+        switch testReuslt {
+        case .normal:
+            return
+        case .right:
+            AlertView.showCheckMark("정답입니다")
+        case .wrong:
+            AlertView.showXMark("오답입니다")
         }
     }
 }

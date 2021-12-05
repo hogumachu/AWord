@@ -103,9 +103,9 @@ class TestViewController: UIViewController {
         
         viewModel.isRight
             .bind(
-                with: self,
-                onNext: { vc, isRight in
-                    vc.flipProblemCard(isRight: isRight)
+                with: viewModel,
+                onNext: { vm, isRight in
+                    vm.testResultAlert(testReuslt: isRight)
                 }
             )
             .disposed(by: disposeBag)
@@ -118,28 +118,6 @@ class TestViewController: UIViewController {
                 }
             )
             .disposed(by: disposeBag)
-    }
-    
-    private func flipProblemCard(isRight: TestResult) {
-        
-        // TODO: - Create Alert View
-        
-        switch isRight {
-        case .normal:
-            problemView.backgroundColor = .systemGray5
-        case .right:
-            problemView.backgroundColor = .systemBlue
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) { [weak self] in
-                self?.viewModel.next()
-            }
-        case .wrong:
-            problemView.backgroundColor = .systemPink
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(1)) { [weak self] in
-                self?.viewModel.next()
-            }
-        }
     }
     
     private func setTestWords(testWord: TestWord) {
