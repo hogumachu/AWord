@@ -10,7 +10,7 @@ class TestViewModel: ViewModelType {
     
     let coordinator: Coordinator
     let words: Observable<[Word]>
-    private lazy var testWords: [TestWord] = []
+    private var testWords: [TestWord] = []
     private var page: Int = 1
     lazy var testObservable = BehaviorSubject<TestWord?>(value: nil)
     lazy var hasNext = BehaviorSubject<Bool>(value: false)
@@ -53,6 +53,9 @@ class TestViewModel: ViewModelType {
     }
     
     func next() {
+        if page != 0 && page == testWords.count {
+            // TODO: - Test 결과 화면 출력
+        }
         if page < testWords.count {
             testObservable.onNext(testWords[page])
             page += 1
@@ -77,10 +80,12 @@ class TestViewModel: ViewModelType {
         case .normal:
             return
         case .right:
-            AlertView.showCheckMark("정답입니다")
+            AlertView.showCheckMark("정답입니다", "\(testWords[page - 1].problem.definition) - \(testWords[page - 1].problem.meaning)")
         case .wrong:
-            AlertView.showXMark("오답입니다")
+            AlertView.showXMark("오답입니다", "\(testWords[page - 1].problem.definition) - \(testWords[page - 1].problem.meaning)")
         }
+        
+        next()
     }
 }
 

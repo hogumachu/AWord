@@ -16,6 +16,12 @@ class TestViewController: UIViewController {
         view.layer.cornerRadius = 16
         view.layer.cornerCurve = .continuous
         view.backgroundColor = .systemGray5
+        
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowRadius = 2
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.masksToBounds = false
         return view
     }()
     private let problemLabel: UILabel = {
@@ -49,6 +55,7 @@ class TestViewController: UIViewController {
         super.viewDidLoad()
         bind()
         configureUI()
+        setNavigationBar()
     }
     
     private func configureUI() {
@@ -120,6 +127,10 @@ class TestViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
+    private func setNavigationBar() {
+        navigationController?.setNavigationBarHidden(false, animated: false)
+    }
+    
     private func setTestWords(testWord: TestWord) {
         problemLabel.text = "\(testWord.problem.definition)"
         
@@ -130,9 +141,11 @@ class TestViewController: UIViewController {
                     button.setTitle(word.meaning, for: .normal)
                     button.setTitleColor(_titleColor, for: .normal)
                     button.setTitleColor(_lightTitleColor, for: .highlighted)
-                    button.backgroundColor = .systemGray5
+                    button.backgroundColor = .white
                     button.layer.cornerRadius = 8
                     button.layer.cornerCurve = .continuous
+                    button.layer.borderColor = _titleColor.cgColor
+                    button.layer.borderWidth = 1
                     
                     button.rx.tap
                         .bind(

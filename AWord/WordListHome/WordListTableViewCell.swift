@@ -126,13 +126,16 @@ class WordListTableViewCell: UITableViewCell {
     // MARK: - Action
     
     func flip() {
-        UIView.animate(withDuration: 0.3) { [weak self] in
-            guard let cardView = self?.cardView, let flipCardView = self?.flipCardView else {
-                return
+        UIView.transition(with: cardView, duration: 0.3, options: .transitionCrossDissolve) { [weak self] in
+            if let cardView = self?.cardView {
+                cardView.isHidden = !cardView.isHidden
             }
-            
-            cardView.isHidden = !cardView.isHidden
-            flipCardView.isHidden = !flipCardView.isHidden
+        }
+        
+        UIView.transition(with: flipCardView, duration: 0.3, options: .transitionCrossDissolve) { [weak self] in
+            if let flipCardView = self?.flipCardView {
+                flipCardView.isHidden = !flipCardView.isHidden
+            }
         }
     }
 }

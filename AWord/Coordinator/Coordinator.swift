@@ -141,7 +141,6 @@ extension Coordinator {
     
     func push(at navigation: NavigationScene, scene: Scene, wordsObservable: Observable<[Word]>, animated: Bool) {
         let viewController = sceneFactory(scene: scene, wordsObservable: wordsObservable, animated: animated)
-        
         switch navigation {
         case .main:
             mainNavigationController.pushViewController(viewController, animated: animated)

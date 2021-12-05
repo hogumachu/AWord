@@ -23,23 +23,37 @@ class WordListViewController: UIViewController {
     private let createButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = UIColor(hex: "95D1CC")
+        button.setTitle("추가하기", for: .normal)
+        button.setTitleColor(_titleColor, for: .normal)
+        button.setTitleColor(.systemGray, for: .highlighted)
         button.contentMode = .scaleToFill
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
-        button.setImage(_plusCircle, for: .normal)
-        button.setImage(_plusCircleFill, for: .highlighted)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+        button.layer.cornerRadius = 8
+        button.layer.cornerCurve = .continuous
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowRadius = 2
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowOffset = CGSize(width: 3, height: 3)
+        button.layer.masksToBounds = false
         return button
     }()
     private let testButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = UIColor(hex: "95D1CC")
+        button.setTitle("학습하기", for: .normal)
+        button.setTitleColor(_titleColor, for: .normal)
+        button.setTitleColor(.systemGray, for: .highlighted)
         button.contentMode = .scaleToFill
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
-        button.setImage(_plusCircle, for: .normal)
-        button.setImage(_plusCircleFill, for: .highlighted)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+        button.layer.cornerRadius = 8
+        button.layer.cornerCurve = .continuous
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowRadius = 2
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowOffset = CGSize(width: 3, height: 3)
+        button.layer.masksToBounds = false
         return button
     }()
     
@@ -58,6 +72,7 @@ class WordListViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         bind()
+        setNavigationBar()
     }
     
     // MARK: - Configure
@@ -69,22 +84,32 @@ class WordListViewController: UIViewController {
         view.addSubview(createButton)
         view.addSubview(testButton)
         
+        wordListTableView.tableFooterView = UIView(frame: .init(x: 0, y: 0, width: view.frame.width, height: 80))
+        
         wordListTableView.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(createButton.snp.top).offset(-10)
+            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         createButton.snp.makeConstraints {
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            $0.width.height.equalTo(30)
+            $0.leading.equalTo(view.snp.centerX).offset(10)
+            $0.height.equalTo(40)
         }
         
         testButton.snp.makeConstraints {
             $0.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            $0.width.height.equalTo(30)
+            $0.trailing.equalTo(view.snp.centerX).offset(-10)
+            $0.height.equalTo(40)
         }
+    }
+    
+    private func setNavigationBar() {
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = _titleColor
+        navigationItem.backBarButtonItem = backBarButtonItem
+        navigationController?.navigationBar.isHidden = false
     }
     
     // MARK: - Bind
@@ -134,9 +159,15 @@ class WordListViewController: UIViewController {
             .disposed(by: disposeBag)
         
         navigationItem.title = viewModel.storage.title
-        
-        
     }
 }
 
-extension WordListViewController: UIScrollViewDelegate { }
+extension WordListViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+       if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
+          navigationController?.setNavigationBarHidden(true, animated: true)
+       } else {
+          navigationController?.setNavigationBarHidden(false, animated: true)
+       }
+    }
+}

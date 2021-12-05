@@ -57,6 +57,15 @@ class WordListViewModel: WordStorableViewModelType {
     }
     
     func test() {
-        coordinator.push(at: .main, scene: .test, wordsObservable: words(), animated: true)
+        words()
+            .bind(with: self) { vm, words in
+                if words.count >= 5 {
+                    vm.coordinator.push(at: .main, scene: .test, wordsObservable: vm.words(), animated: true)
+                } else {
+                    AlertView.showXMark("단어 5 개 이상부터 가능합니다")
+                }
+            }
+            .dispose()
+        
     }
 }

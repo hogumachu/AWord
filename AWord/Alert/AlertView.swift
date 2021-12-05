@@ -18,7 +18,16 @@ class AlertView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = .systemFont(ofSize: 20, weight: .heavy)
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        return label
+    }()
+    private let subTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 15, weight: .semibold)
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -80,22 +89,21 @@ class AlertView: UIView {
     
     // MARK: - Helper
     
-    class func show(_ text: String = "") {
-        
+    class func show(_ text: String = "", _ subTitle: String = "") {
         DispatchQueue.main.async {
-            shared.showAlert(text)
+            shared.showAlert(text, subTitle)
         }
     }
     
-    class func showCheckMark(_ text: String = "") {
+    class func showCheckMark(_ text: String = "", _ subTitle: String = "") {
         DispatchQueue.main.async {
-            shared.setCheckMarkImageView(text)
+            shared.setCheckMarkImageView(text, subTitle)
         }
     }
     
-    class func showXMark(_ text: String = "") {
+    class func showXMark(_ text: String = "", _ subTitle: String = "") {
         DispatchQueue.main.async {
-            shared.setXMarkImageView(text)
+            shared.setXMarkImageView(text, subTitle)
         }
     }
     
@@ -104,20 +112,22 @@ class AlertView: UIView {
         xMarkImageView.isHidden = true
     }
     
-    private func setCheckMarkImageView(_ text: String = "") {
+    private func setCheckMarkImageView(_ text: String = "", _ subTitle: String = "") {
         hiddenImageViews()
         checkMarkImageView.isHidden = false
         checkMarkImageView.image = _checkmarkCircle
         alertLabel.text = text
+        subTitleLabel.text = subTitle
         setUI()
         checkMarkAnimation()
     }
     
-    private func setXMarkImageView(_ text: String = "") {
+    private func setXMarkImageView(_ text: String = "", _ subTitle: String = "") {
         hiddenImageViews()
         xMarkImageView.isHidden = false
         xMarkImageView.image = _xmarkCircleRed
         alertLabel.text = text
+        subTitleLabel.text = subTitle
         setUI()
         xMarkAnimation()
     }
@@ -134,8 +144,9 @@ class AlertView: UIView {
         }
     }
     
-    private func showAlert(_ text: String = "") {
+    private func showAlert(_ text: String = "", _ subTitle: String = "") {
         alertLabel.text = text
+        subTitleLabel.text = subTitle
         setUI()
         defaultAnimation()
     }
@@ -163,6 +174,7 @@ class AlertView: UIView {
         addSubview(backgroundView)
         addSubview(alertView)
         addSubview(alertLabel)
+        addSubview(subTitleLabel)
         addSubview(backgroundButton)
         addSubview(okButton)
         
@@ -182,6 +194,13 @@ class AlertView: UIView {
             $0.center.equalTo(alertView)
             $0.leading.greaterThanOrEqualTo(alertView.snp.leading).offset(10)
             $0.trailing.lessThanOrEqualTo(alertView.snp.trailing).offset(-10)
+        }
+        
+        subTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(alertLabel.snp.bottom).offset(10)
+            $0.leading.equalTo(alertView.snp.leading).offset(10)
+            $0.trailing.equalTo(alertView.snp.trailing).offset(-10)
+            $0.bottom.lessThanOrEqualTo(okButton.snp.top).offset(-10)
         }
         
         backgroundButton.snp.makeConstraints {

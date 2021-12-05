@@ -8,7 +8,6 @@ class WordSetViewController: UIViewController {
         let viewModel: WordSetViewModel
     }
     
-    
     // MARK: - Properties
     
     let viewModel: WordSetViewModel
@@ -24,11 +23,19 @@ class WordSetViewController: UIViewController {
     private let createButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = UIColor(hex: "95D1CC")
+        button.setTitle("세트 추가하기", for: .normal)
+        button.setTitleColor(_titleColor, for: .normal)
+        button.setTitleColor(.systemGray, for: .highlighted)
         button.contentMode = .scaleToFill
-        button.contentVerticalAlignment = .fill
-        button.contentHorizontalAlignment = .fill
-        button.setImage(_plusCircle, for: .normal)
-        button.setImage(_plusCircleFill, for: .highlighted)
+        button.titleLabel?.font = .systemFont(ofSize: 15, weight: .bold)
+        button.layer.cornerRadius = 8
+        button.layer.cornerCurve = .continuous
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowRadius = 2
+        button.layer.shadowOpacity = 0.5
+        button.layer.shadowOffset = CGSize(width: 3, height: 3)
+        button.layer.masksToBounds = false
         return button
     }()
     
@@ -47,31 +54,37 @@ class WordSetViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         bind()
-        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = _titleColor
-        navigationItem.backBarButtonItem = backBarButtonItem
+        setNavigationBar()
     }
     
     // MARK: - Configure
     
     private func configureUI() {
-        navigationItem.title = "AWord"
-        
         view.backgroundColor = _backgroundColor
         
         view.addSubview(setTableView)
         view.addSubview(createButton)
         
+        setTableView.tableFooterView = UIView(frame: .init(x: 0, y: 0, width: view.frame.width, height: 80))
+        
         setTableView.snp.makeConstraints {
-            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            $0.bottom.equalTo(createButton.snp.top).offset(-10)
+            $0.top.leading.trailing.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         createButton.snp.makeConstraints {
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(10)
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
-            $0.width.height.equalTo(30)
+            $0.height.equalTo(40)
         }
+    }
+    
+    private func setNavigationBar() {
+        let backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = _titleColor
+        navigationItem.backBarButtonItem = backBarButtonItem
+        navigationController?.navigationBar.isHidden = false
+        navigationItem.title = "AWord"
     }
     
     // MARK: - Bind
@@ -123,4 +136,12 @@ class WordSetViewController: UIViewController {
     }
 }
 
-extension WordSetViewController: UIScrollViewDelegate { }
+extension WordSetViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+       if scrollView.panGestureRecognizer.translation(in: scrollView).y < 0 {
+          navigationController?.setNavigationBarHidden(true, animated: true)
+       } else {
+          navigationController?.setNavigationBarHidden(false, animated: true)
+       }
+    }
+}
