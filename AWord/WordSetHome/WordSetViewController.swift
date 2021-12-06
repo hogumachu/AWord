@@ -145,3 +145,9 @@ extension WordSetViewController: UIScrollViewDelegate {
        }
     }
 }
+
+extension WordSetViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "삭제"
+    }
+}

@@ -171,3 +171,9 @@ extension WordListViewController: UIScrollViewDelegate {
        }
     }
 }
+
+extension WordListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "삭제"
+    }
+}
