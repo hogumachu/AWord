@@ -80,6 +80,7 @@ class WordStorage: WordStorageType {
             updated.update(entityObject)
             
             sectionModel.items.append(updated)
+            delete(word: word)
             store.onNext([sectionModel])
             
             return Observable.just(updated)
@@ -88,6 +89,21 @@ class WordStorage: WordStorageType {
         return Observable.just(word)
     }
     
+    func updateComplete(word: Word, complete: Bool) {
+        let updated = Word(original: word, complete: complete)
+        
+        if let entity = NSEntityDescription.entity(forEntityName: "Word", in: context) {
+            let entityObject = NSManagedObject(entity: entity, insertInto: context)
+            updated.update(entityObject)
+            
+            sectionModel.items.append(updated)
+            delete(word: word)
+            store.onNext([sectionModel])
+        }
+        
+    }
+    
+    @discardableResult
     func delete(word: Word) -> Observable<Word> {
         do {
             let objects = try context.fetch(WordEntity.fetchRequest())
