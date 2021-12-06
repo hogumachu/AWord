@@ -59,6 +59,20 @@ class WordListTableViewCell: UITableViewCell {
         label.font = .systemFont(ofSize: 18, weight: .medium)
         return label
     }()
+    private let checkMarkImageView: UIImageView = {
+        let imageView = UIImageView(image: _checkmark)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleToFill
+        imageView.isHidden = true
+        return imageView
+    }()
+    private let xMarkImageView: UIImageView = {
+        let imageView = UIImageView(image: _xmarkRed)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleToFill
+        imageView.isHidden = true
+        return imageView
+    }()
     
     // MARK: - Lifecycle
     
@@ -77,6 +91,8 @@ class WordListTableViewCell: UITableViewCell {
         backgroundColor = _backgroundColor
         addSubview(cardView)
         addSubview(flipCardView)
+        addSubview(checkMarkImageView)
+        addSubview(xMarkImageView)
         
         cardView.addSubview(definitionLabel)
         
@@ -101,19 +117,33 @@ class WordListTableViewCell: UITableViewCell {
         
         definitionLabel.snp.makeConstraints {
             $0.center.equalToSuperview()
-            $0.leading.equalToSuperview().offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
+            $0.leading.equalToSuperview().offset(50)
+            $0.trailing.equalToSuperview().offset(-50)
         }
         
         flipDefinitionLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(5)
-            $0.leading.equalToSuperview().offset(10)
-            $0.trailing.equalToSuperview().offset(-10)
+            $0.leading.equalToSuperview().offset(50)
+            $0.trailing.equalToSuperview().offset(-50)
         }
         
         flipMeaningLabel.snp.makeConstraints {
             $0.top.equalTo(flipDefinitionLabel.snp.bottom).offset(5)
             $0.leading.trailing.equalTo(flipDefinitionLabel)
+        }
+        
+        checkMarkImageView.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(15)
+            $0.centerY.equalTo(cardView.snp.centerY)
+            
+            $0.width.height.equalTo(30)
+        }
+        
+        xMarkImageView.snp.makeConstraints {
+            $0.leading.equalToSuperview().offset(15)
+            $0.centerY.equalTo(cardView.snp.centerY)
+            
+            $0.width.height.equalTo(30)
         }
     }
     
@@ -121,6 +151,22 @@ class WordListTableViewCell: UITableViewCell {
         definitionLabel.text = item.definition
         flipDefinitionLabel.text = item.definition
         flipMeaningLabel.text = item.meaning
+        
+        setComplete(item.complete)
+    }
+    
+    private func setComplete(_ complete: Int16) {
+        switch complete {
+        case 1:
+            xMarkImageView.isHidden = false
+            checkMarkImageView.isHidden = true
+        case 2:
+            xMarkImageView.isHidden = true
+            checkMarkImageView.isHidden = false
+        default:
+            xMarkImageView.isHidden = true
+            checkMarkImageView.isHidden = true
+        }
     }
     
     // MARK: - Action
@@ -138,4 +184,6 @@ class WordListTableViewCell: UITableViewCell {
             }
         }
     }
+    
+    
 }
