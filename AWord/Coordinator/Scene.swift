@@ -4,6 +4,7 @@ enum Scene {
     case list
     case listCreate
     case test
+    case testResult
 }
 
 enum NavigationScene {

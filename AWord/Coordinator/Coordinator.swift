@@ -22,6 +22,7 @@ class Coordinator {
         let wordListCreateViewControllerFactory: (WordListCreateViewController.Dependency) -> WordListCreateViewController
         
         let testViewControllerFactory: (TestViewController.Dependency) -> TestViewController
+        let testResultViewControllerFactory: (TestResultViewController.Dependency) -> TestResultViewController
     }
     
     let mainNavigationController: UINavigationController = {
@@ -35,6 +36,7 @@ class Coordinator {
     let wordListCreateViewControllerFactory: (WordListCreateViewController.Dependency) -> WordListCreateViewController
     
     let testViewControllerFactory: (TestViewController.Dependency) -> TestViewController
+    let testResultViewControllerFactory: (TestResultViewController.Dependency) -> TestResultViewController
     
     // MARK: Init
     
@@ -48,6 +50,7 @@ class Coordinator {
         self.wordListCreateViewControllerFactory = sceneDependency.wordListCreateViewControllerFactory
         
         self.testViewControllerFactory = sceneDependency.testViewControllerFactory
+        self.testResultViewControllerFactory = sceneDependency.testResultViewControllerFactory
     }
     
 }
@@ -97,16 +100,19 @@ extension Coordinator {
         case .listCreate:
             let listCreateVC = wordListCreateViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: sectionStorage))))
             return listCreateVC
+        case .test:
+            let testVC = testViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, storage: sectionStorage))))
+            return testVC
         default:
             return UIViewController()
         }
     }
     
-    private func sceneFactory(scene: Scene, wordsObservable: Observable<[Word]>, animated: Bool) -> UIViewController {
+    private func sceneFactory(scene: Scene, rightWords: [Word], wrongWords: [Word], animated: Bool) -> UIViewController {
         switch scene {
-        case .test:
-            let testVC = testViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, words: wordsObservable))))
-            return testVC
+        case .testResult:
+            let testResultVC = testResultViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, rightWords: rightWords, wrongWords: wrongWords))))
+            return testResultVC
         default:
             return UIViewController()
         }
@@ -139,8 +145,8 @@ extension Coordinator {
         }
     }
     
-    func push(at navigation: NavigationScene, scene: Scene, wordsObservable: Observable<[Word]>, animated: Bool) {
-        let viewController = sceneFactory(scene: scene, wordsObservable: wordsObservable, animated: animated)
+    func push(at navigation: NavigationScene, scene: Scene, sectionStorage: WordStorageType, animated: Bool) {
+        let viewController = sceneFactory(scene: scene, sectionStorage: sectionStorage)
         switch navigation {
         case .main:
             mainNavigationController.pushViewController(viewController, animated: animated)
@@ -155,6 +161,12 @@ extension Coordinator {
     
     func modal(at parentViewController: UIViewController, scene: Scene, sectionStorage: WordStorageType, animated: Bool) {
         let viewController = sceneFactory(scene: scene, sectionStorage: sectionStorage)
+        
+        parentViewController.present(viewController, animated: animated, completion: nil)
+    }
+    
+    func modal(at parentViewController: UIViewController, scene: Scene, rightWords: [Word], wrongWords: [Word], animated: Bool) {
+        let viewController = sceneFactory(scene: scene, rightWords: rightWords, wrongWords: wrongWords, animated: animated)
         
         parentViewController.present(viewController, animated: animated, completion: nil)
     }
