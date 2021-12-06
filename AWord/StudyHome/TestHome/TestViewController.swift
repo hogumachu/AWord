@@ -41,6 +41,12 @@ class TestViewController: UIViewController {
         stack.spacing = 5
         return stack
     }()
+    private let speakButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(_speaker, for: .normal)
+        return button
+    }()
     
     init(dependency: Dependency) {
         self.viewModel = dependency.viewModel
@@ -65,6 +71,7 @@ class TestViewController: UIViewController {
         view.addSubview(exampleStackView)
         
         problemView.addSubview(problemLabel)
+        problemView.addSubview(speakButton)
         
         problemView.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(10)
@@ -77,6 +84,11 @@ class TestViewController: UIViewController {
             $0.center.equalToSuperview()
             $0.leading.equalToSuperview().offset(5)
             $0.trailing.equalToSuperview().offset(-5)
+        }
+        
+        speakButton.snp.makeConstraints {
+            $0.trailing.bottom.equalToSuperview().offset(-5)
+            $0.width.height.equalTo(30)
         }
         
         exampleStackView.snp.makeConstraints {
@@ -99,7 +111,7 @@ class TestViewController: UIViewController {
             )
             .disposed(by: disposeBag)
         
-        viewModel.words
+        viewModel.words()
             .bind(
                 with: self,
                 onNext: { vc, words in
@@ -110,9 +122,9 @@ class TestViewController: UIViewController {
         
         viewModel.isRight
             .bind(
-                with: viewModel,
-                onNext: { vm, isRight in
-                    vm.testResultAlert(testReuslt: isRight)
+                with: self,
+                onNext: { vc, isRight in
+                    vc.viewModel.testResultAlert(vc, testReuslt: isRight)
                 }
             )
             .disposed(by: disposeBag)
@@ -122,6 +134,15 @@ class TestViewController: UIViewController {
                 with: self,
                 onNext: { vc, title in
                     vc.title = title
+                }
+            )
+            .disposed(by: disposeBag)
+        
+        speakButton.rx.tap
+            .bind(
+                with: viewModel,
+                onNext: { vm, _ in
+                    vm.speak()
                 }
             )
             .disposed(by: disposeBag)
