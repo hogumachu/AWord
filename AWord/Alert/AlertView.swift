@@ -28,7 +28,7 @@ class AlertView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
         label.font = .systemFont(ofSize: 15, weight: .semibold)
-        label.numberOfLines = 0
+        label.numberOfLines = 2
         label.textAlignment = .center
         return label
     }()
@@ -208,7 +208,6 @@ class AlertView: UIView {
         }
         
         okButton.snp.makeConstraints {
-            $0.centerX.equalTo(alertView)
             $0.leading.equalTo(alertView.snp.leading).offset(30)
             $0.trailing.equalTo(alertView.snp.trailing).offset(-30)
             $0.bottom.equalTo(alertView.snp.bottom).offset(-10)
@@ -217,13 +216,13 @@ class AlertView: UIView {
         checkMarkImageView.snp.makeConstraints {
             $0.width.height.equalTo(50)
             $0.centerX.equalTo(alertView)
-            $0.bottom.equalTo(alertLabel.snp.top).offset(-10)
+            $0.bottom.equalTo(alertLabel.snp.top).offset(-20)
         }
         
         xMarkImageView.snp.makeConstraints {
             $0.width.height.equalTo(50)
             $0.centerX.equalTo(alertView)
-            $0.bottom.equalTo(alertLabel.snp.top).offset(-10)
+            $0.bottom.equalTo(alertLabel.snp.top).offset(-20)
         }
         
         let mainWindow = UIApplication.shared.windows.first ?? UIWindow()
