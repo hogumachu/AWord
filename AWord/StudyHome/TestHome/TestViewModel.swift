@@ -80,9 +80,21 @@ class TestViewModel: ViewModelType {
         case .normal:
             return
         case .right:
-            AlertView.showCheckMark("정답입니다", "\(testWords[page - 1].problem.definition) - \(testWords[page - 1].problem.meaning)")
+            AlertView.showCheckMark(
+                "정답입니다",
+                """
+                \(testWords[page - 1].problem.definition)
+                \(testWords[page - 1].problem.meaning)
+                """
+            )
         case .wrong:
-            AlertView.showXMark("오답입니다", "\(testWords[page - 1].problem.definition) - \(testWords[page - 1].problem.meaning)")
+            AlertView.showXMark(
+                "오답입니다",
+                """
+                \(testWords[page - 1].problem.definition)
+                \(testWords[page - 1].problem.meaning)
+                """
+            )
         }
         
         next()

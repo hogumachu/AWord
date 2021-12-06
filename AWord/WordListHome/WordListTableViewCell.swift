@@ -16,7 +16,7 @@ class WordListTableViewCell: UITableViewCell {
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowRadius = 2
         view.layer.shadowOpacity = 0.5
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowOffset = CGSize(width: 1, height: 1)
         view.layer.masksToBounds = false
         return view
     }()
@@ -31,7 +31,7 @@ class WordListTableViewCell: UITableViewCell {
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowRadius = 2
         view.layer.shadowOpacity = 0.5
-        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.shadowOffset = CGSize(width: 1, height: 1)
         view.layer.masksToBounds = false
         return view
     }()
