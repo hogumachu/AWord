@@ -16,7 +16,11 @@ class WordSetCreateViewModel: WordSetStorableViewModelType {
     
     func create(_ viewController: UIViewController, title: String?) {
         if let title = title, !title.isEmpty {
-            storage.createSet(title: title)
+            if !storage.createSet(title: title) {
+                AlertView.showXMark("동일한 제목으로 생성할 수 없습니다")
+            }
+        } else {
+            AlertView.showXMark("빈 제목으로 생성할 수 없습니다")
         }
         
         coordinator.dismiss(viewController: viewController, animated: true)
