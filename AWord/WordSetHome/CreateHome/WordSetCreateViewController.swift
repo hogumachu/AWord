@@ -150,6 +150,15 @@ class WordSetCreateViewController: UIViewController {
                 }
             )
             .disposed(by: disposeBag)
+        
+        titleTextField.rx.controlEvent([.editingDidEndOnExit])
+            .bind(
+                with: self,
+                onNext: { vc, _ in
+                    vc.viewModel.create(vc, title: vc.titleTextField.text)
+                }
+            )
+            .disposed(by: disposeBag)
     }
     
     private func addNotificationObserver() {

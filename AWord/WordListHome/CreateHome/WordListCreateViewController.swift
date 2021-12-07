@@ -160,6 +160,24 @@ class WordListCreateViewController: UIViewController {
                 }
             )
             .disposed(by: disposeBag)
+        
+        wordTextField.rx.controlEvent([.editingDidEndOnExit])
+            .bind(
+                with: self,
+                onNext: { vc, _ in
+                    vc.meaningTextField.becomeFirstResponder()
+                }
+            )
+            .disposed(by: disposeBag)
+        
+        meaningTextField.rx.controlEvent([.editingDidEndOnExit])
+            .bind(
+                with: self,
+                onNext: { vc, _ in
+                    vc.viewModel.create(vc, definition: vc.wordTextField.text, meaning: vc.meaningTextField.text)
+                }
+            )
+            .disposed(by: disposeBag)
     }
     
     private func addNotificationObserver() {
