@@ -11,6 +11,7 @@ public let _xmarkCircleFill =  UIImage(systemName: "xmark.circle.fill")?.withTin
 public let _arrowUturnBackward = UIImage(systemName: "arrow.uturn.backward")?.withTintColor(_titleColor, renderingMode: .alwaysOriginal)
 
 public let _checkmark = UIImage(systemName: "checkmark")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)
+
 public let _checkmarkCircle = UIImage(systemName: "checkmark.circle")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)
 public let _checkmarkCircleFill = UIImage(systemName: "checkmark.circle.fill")?.withTintColor(.systemGreen, renderingMode: .alwaysOriginal)
 
@@ -21,3 +22,6 @@ public let _xmarkCircleRed = UIImage(systemName: "xmark.circle")?.withTintColor(
 public let _xmarkCircleFillRed =  UIImage(systemName: "xmark.circle.fill")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
 
 public let _speaker = UIImage(systemName: "speaker.wave.2")?.withTintColor(_titleColor, renderingMode: .alwaysOriginal)
+
+public let _handTap = UIImage(systemName: "hand.tap")?.withTintColor(.black, renderingMode: .alwaysOriginal)
+public let _handTapFill = UIImage(systemName: "hand.tap.fill")?.withTintColor(.black, renderingMode: .alwaysOriginal)
