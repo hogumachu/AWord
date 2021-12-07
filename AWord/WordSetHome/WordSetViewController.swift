@@ -38,6 +38,39 @@ class WordSetViewController: UIViewController {
         button.layer.masksToBounds = false
         return button
     }()
+    private let popUpView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 8
+        view.layer.cornerCurve = .continuous
+        view.layer.cornerRadius = 8
+        view.layer.cornerCurve = .continuous
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowRadius = 2
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.masksToBounds = false
+        return view
+    }()
+    private let popUpLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "세트 추가 버튼을 눌러 단어장을 생성해보세요!"
+        label.textColor = .black
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        return label
+    }()
+    private let handTapImageView: UIImageView = {
+        let imageView = UIImageView(image: _handTap)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.animationImages = [_handTap!, _handTapFill!]
+        imageView.animationDuration = 1.5
+        imageView.animationRepeatCount = 8
+        return imageView
+    }()
     
     // MARK: - Lifecycle
     
@@ -64,6 +97,10 @@ class WordSetViewController: UIViewController {
         
         view.addSubview(setTableView)
         view.addSubview(createButton)
+        view.addSubview(popUpView)
+        view.addSubview(handTapImageView)
+        
+        popUpView.addSubview(popUpLabel)
         
         setTableView.tableFooterView = UIView(frame: .init(x: 0, y: 0, width: view.frame.width, height: 80))
         
@@ -76,6 +113,25 @@ class WordSetViewController: UIViewController {
             $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-10)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-20)
             $0.height.equalTo(40)
+        }
+        
+        popUpView.snp.makeConstraints {
+            $0.height.equalTo(100)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.bottom.equalTo(createButton.snp.top).offset(-20)
+        }
+        
+        popUpLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.leading.equalToSuperview().offset(5)
+            $0.trailing.equalToSuperview().offset(-5)
+        }
+        
+        handTapImageView.snp.makeConstraints {
+            $0.width.height.equalTo(40)
+            $0.trailing.equalTo(createButton).offset(-20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-5)
         }
     }
     
@@ -95,6 +151,15 @@ class WordSetViewController: UIViewController {
         
         viewModel.wordSetList
             .bind(to: setTableView.rx.items(dataSource: viewModel.dataSource))
+            .disposed(by: disposeBag)
+        
+        viewModel.wordSetList
+            .bind(
+                with: self,
+                onNext: { vc, items in
+                    vc.sceneInitialSet(count: items.count)
+                }
+            )
             .disposed(by: disposeBag)
         
         Observable.zip(setTableView.rx.modelSelected(WordSet.self), setTableView.rx.itemSelected)
@@ -133,6 +198,22 @@ class WordSetViewController: UIViewController {
                 }
             )
             .disposed(by: disposeBag)
+    }
+    
+    // MARK: - Init View Helper
+    
+    private func sceneInitialSet(count: Int) {
+        if count == 0 {
+            UIView.transition(with: popUpView, duration: 0.5, options: .transitionFlipFromBottom) { [weak self] in
+                self?.popUpView.isHidden = false
+            }
+            handTapImageView.isHidden = false
+            
+            handTapImageView.startAnimating()
+        } else {
+            popUpView.isHidden = true
+            handTapImageView.isHidden = true
+        }
     }
 }
 

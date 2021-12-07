@@ -56,6 +56,65 @@ class WordListViewController: UIViewController {
         button.layer.masksToBounds = false
         return button
     }()
+    private let popUpView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 8
+        view.layer.cornerCurve = .continuous
+        view.layer.cornerRadius = 8
+        view.layer.cornerCurve = .continuous
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowRadius = 2
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.masksToBounds = false
+        return view
+    }()
+    private let popUpLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "추가하기 버튼을 눌러 단어를 생성할 수 있습니다!"
+        label.textColor = .black
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.numberOfLines = 2
+        return label
+    }()
+    private let secondPopUpView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 8
+        view.layer.cornerCurve = .continuous
+        view.layer.cornerRadius = 8
+        view.layer.cornerCurve = .continuous
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowRadius = 2
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 3, height: 3)
+        view.layer.masksToBounds = false
+        return view
+    }()
+    private let secondPopUpLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "단어 5개 부터 학습하기를 진행할 수 있습니다!"
+        label.textColor = .black
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 16, weight: .semibold)
+        label.numberOfLines = 2
+        return label
+    }()
+    private let handTapImageView: UIImageView = {
+        let imageView = UIImageView(image: _handTap)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFit
+        imageView.animationImages = [_handTap!, _handTapFill!]
+        imageView.animationDuration = 1.5
+        imageView.animationRepeatCount = 8
+        return imageView
+    }()
     
     // MARK: - Lifecycle
     
@@ -84,6 +143,13 @@ class WordListViewController: UIViewController {
         view.addSubview(createButton)
         view.addSubview(testButton)
         
+        view.addSubview(popUpView)
+        view.addSubview(secondPopUpView)
+        view.addSubview(handTapImageView)
+        
+        popUpView.addSubview(popUpLabel)
+        secondPopUpView.addSubview(secondPopUpLabel)
+        
         wordListTableView.tableFooterView = UIView(frame: .init(x: 0, y: 0, width: view.frame.width, height: 80))
         
         wordListTableView.snp.makeConstraints {
@@ -103,6 +169,38 @@ class WordListViewController: UIViewController {
             $0.trailing.equalTo(view.snp.centerX).offset(-10)
             $0.height.equalTo(40)
         }
+        
+        popUpView.snp.makeConstraints {
+            $0.height.equalTo(80)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.bottom.equalTo(secondPopUpView.snp.top).offset(-20)
+        }
+        
+        popUpLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.leading.equalToSuperview().offset(5)
+            $0.trailing.equalToSuperview().offset(-5)
+        }
+        
+        secondPopUpView.snp.makeConstraints {
+            $0.height.equalTo(80)
+            $0.leading.equalTo(view.safeAreaLayoutGuide).offset(20)
+            $0.trailing.equalTo(view.safeAreaLayoutGuide).offset(-20)
+            $0.bottom.equalTo(createButton.snp.top).offset(-20)
+        }
+        
+        secondPopUpLabel.snp.makeConstraints {
+            $0.center.equalToSuperview()
+            $0.leading.equalToSuperview().offset(5)
+            $0.trailing.equalToSuperview().offset(-5)
+        }
+        
+        handTapImageView.snp.makeConstraints {
+            $0.width.height.equalTo(40)
+            $0.trailing.equalTo(createButton).offset(-20)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).offset(-5)
+        }
     }
     
     private func setNavigationBar() {
@@ -120,6 +218,15 @@ class WordListViewController: UIViewController {
         
         viewModel.wordList
             .bind(to: wordListTableView.rx.items(dataSource: viewModel.dataSource))
+            .disposed(by: disposeBag)
+        
+        viewModel.wordList
+            .bind(
+                with: self,
+                onNext: { vc, items in
+                    vc.sceneInitialSet(count: items[0].items.count)
+                }
+            )
             .disposed(by: disposeBag)
         
         wordListTableView.rx.itemSelected
@@ -159,6 +266,26 @@ class WordListViewController: UIViewController {
             .disposed(by: disposeBag)
         
         navigationItem.title = viewModel.storage.title
+    }
+    
+    // MARK: - Init View Helper
+    
+    private func sceneInitialSet(count: Int) {
+        if count == 0 {
+            UIView.transition(with: popUpView, duration: 0.5, options: .transitionFlipFromBottom) { [weak self] in
+                self?.popUpView.isHidden = false
+            }
+            UIView.transition(with: secondPopUpView, duration: 0.5, options: .transitionFlipFromBottom) { [weak self] in
+                self?.secondPopUpView.isHidden = false
+            }
+            handTapImageView.isHidden = false
+            
+            handTapImageView.startAnimating()
+        } else {
+            popUpView.isHidden = true
+            secondPopUpView.isHidden = true
+            handTapImageView.isHidden = true
+        }
     }
 }
 
