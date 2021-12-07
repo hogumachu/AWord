@@ -47,6 +47,17 @@
 		F15CAADB27579AF400CFAC4D /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAADA27579AF400CFAC4D /* DateHelper.swift */; };
 		F15CAADD2757B27D00CFAC4D /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAADC2757B27D00CFAC4D /* Scene.swift */; };
 		F15CAADF2757B29400CFAC4D /* Transition.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAADE2757B29400CFAC4D /* Transition.swift */; };
+		F15CAAE4275A349300CFAC4D /* StudyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAE3275A349300CFAC4D /* StudyViewController.swift */; };
+		F15CAAE6275A34A400CFAC4D /* StudyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAE5275A34A400CFAC4D /* StudyViewModel.swift */; };
+		F15CAAE9275A35A800CFAC4D /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAE8275A35A800CFAC4D /* TestViewController.swift */; };
+		F15CAAEB275A35AE00CFAC4D /* TestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAEA275A35AE00CFAC4D /* TestViewModel.swift */; };
+		F15CAAED275A3A6B00CFAC4D /* TestWord.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15CAAEC275A3A6B00CFAC4D /* TestWord.swift */; };
+		F1A79A1D275C5C9B00A1FA94 /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A79A1C275C5C9B00A1FA94 /* AlertView.swift */; };
+		F1A79A1F275C7A3D00A1FA94 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A79A1E275C7A3D00A1FA94 /* Color+Hex.swift */; };
+		F1A79A21275E015000A1FA94 /* TestResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A79A20275E015000A1FA94 /* TestResultViewController.swift */; };
+		F1A79A23275E020300A1FA94 /* TestResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A79A22275E020300A1FA94 /* TestResultViewModel.swift */; };
+		F1A79A26275E503E00A1FA94 /* TestResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A79A25275E503E00A1FA94 /* TestResultCollectionViewCell.swift */; };
+		F1A79A28275EFB7D00A1FA94 /* AudioImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A79A27275EFB7D00A1FA94 /* AudioImpl.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +118,17 @@
 		F15CAADA27579AF400CFAC4D /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		F15CAADC2757B27D00CFAC4D /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
 		F15CAADE2757B29400CFAC4D /* Transition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transition.swift; sourceTree = "<group>"; };
+		F15CAAE3275A349300CFAC4D /* StudyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewController.swift; sourceTree = "<group>"; };
+		F15CAAE5275A34A400CFAC4D /* StudyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudyViewModel.swift; sourceTree = "<group>"; };
+		F15CAAE8275A35A800CFAC4D /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		F15CAAEA275A35AE00CFAC4D /* TestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewModel.swift; sourceTree = "<group>"; };
+		F15CAAEC275A3A6B00CFAC4D /* TestWord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestWord.swift; sourceTree = "<group>"; };
+		F1A79A1C275C5C9B00A1FA94 /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		F1A79A1E275C7A3D00A1FA94 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		F1A79A20275E015000A1FA94 /* TestResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultViewController.swift; sourceTree = "<group>"; };
+		F1A79A22275E020300A1FA94 /* TestResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultViewModel.swift; sourceTree = "<group>"; };
+		F1A79A25275E503E00A1FA94 /* TestResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		F1A79A27275EFB7D00A1FA94 /* AudioImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioImpl.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,9 +183,12 @@
 		F15CAA472754F43100CFAC4D /* AWord */ = {
 			isa = PBXGroup;
 			children = (
+				F1A79A1B275C5C9100A1FA94 /* Alert */,
+				F1A79A29275EFCE100A1FA94 /* Audio */,
 				F15CAA7B2754F4A700CFAC4D /* Service */,
 				F15CAAAE2755C97500CFAC4D /* WordSetHome */,
 				F15CAA9F2755109A00CFAC4D /* WordListHome */,
+				F15CAAE2275A343B00CFAC4D /* StudyHome */,
 				F15CAA8E2755085200CFAC4D /* Model */,
 				F15CAA7D2754F4B100CFAC4D /* DI */,
 				F15CAA7C2754F4AC00CFAC4D /* Coordinator */,
@@ -257,6 +282,7 @@
 			children = (
 				F15CAA9B27550E8C00CFAC4D /* Word.swift */,
 				F15CAAAC2755C95400CFAC4D /* WordSet.swift */,
+				F15CAAEC275A3A6B00CFAC4D /* TestWord.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -316,6 +342,7 @@
 			children = (
 				F15CAAD527578D4C00CFAC4D /* Image.swift */,
 				F15CAAD727578E6100CFAC4D /* Color.swift */,
+				F1A79A1E275C7A3D00A1FA94 /* Color+Hex.swift */,
 			);
 			path = Constant;
 			sourceTree = "<group>";
@@ -326,6 +353,52 @@
 				F15CAADA27579AF400CFAC4D /* DateHelper.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		F15CAAE2275A343B00CFAC4D /* StudyHome */ = {
+			isa = PBXGroup;
+			children = (
+				F15CAAE7275A359F00CFAC4D /* TestHome */,
+				F15CAAE3275A349300CFAC4D /* StudyViewController.swift */,
+				F15CAAE5275A34A400CFAC4D /* StudyViewModel.swift */,
+			);
+			path = StudyHome;
+			sourceTree = "<group>";
+		};
+		F15CAAE7275A359F00CFAC4D /* TestHome */ = {
+			isa = PBXGroup;
+			children = (
+				F1A79A24275E099400A1FA94 /* TestResultHome */,
+				F15CAAE8275A35A800CFAC4D /* TestViewController.swift */,
+				F15CAAEA275A35AE00CFAC4D /* TestViewModel.swift */,
+			);
+			path = TestHome;
+			sourceTree = "<group>";
+		};
+		F1A79A1B275C5C9100A1FA94 /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				F1A79A1C275C5C9B00A1FA94 /* AlertView.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
+		F1A79A24275E099400A1FA94 /* TestResultHome */ = {
+			isa = PBXGroup;
+			children = (
+				F1A79A22275E020300A1FA94 /* TestResultViewModel.swift */,
+				F1A79A20275E015000A1FA94 /* TestResultViewController.swift */,
+				F1A79A25275E503E00A1FA94 /* TestResultCollectionViewCell.swift */,
+			);
+			path = TestResultHome;
+			sourceTree = "<group>";
+		};
+		F1A79A29275EFCE100A1FA94 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				F1A79A27275EFB7D00A1FA94 /* AudioImpl.swift */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -471,21 +544,31 @@
 			files = (
 				F15CAABB2755CDE000CFAC4D /* WordSetStorageType.swift in Sources */,
 				F15CAAD627578D4C00CFAC4D /* Image.swift in Sources */,
+				F15CAAE9275A35A800CFAC4D /* TestViewController.swift in Sources */,
 				F15CAADD2757B27D00CFAC4D /* Scene.swift in Sources */,
+				F1A79A28275EFB7D00A1FA94 /* AudioImpl.swift in Sources */,
 				F15CAAA52755138E00CFAC4D /* Coordinator.swift in Sources */,
 				F15CAADB27579AF400CFAC4D /* DateHelper.swift in Sources */,
 				F15CAA492754F43100CFAC4D /* AppDelegate.swift in Sources */,
+				F1A79A1F275C7A3D00A1FA94 /* Color+Hex.swift in Sources */,
 				F15CAAC42755EA7100CFAC4D /* WordSetCreateViewModel.swift in Sources */,
 				F15CAAA72755140E00CFAC4D /* WordListViewController.swift in Sources */,
 				F15CAAA32755110200CFAC4D /* MemoryStorage.swift in Sources */,
 				F15CAADF2757B29400CFAC4D /* Transition.swift in Sources */,
 				F15CAAA9275516E000CFAC4D /* Composition.swift in Sources */,
+				F15CAAEB275A35AE00CFAC4D /* TestViewModel.swift in Sources */,
 				F15CAA9E2755101F00CFAC4D /* WordStorageType.swift in Sources */,
+				F1A79A23275E020300A1FA94 /* TestResultViewModel.swift in Sources */,
+				F1A79A21275E015000A1FA94 /* TestResultViewController.swift in Sources */,
+				F15CAAE4275A349300CFAC4D /* StudyViewController.swift in Sources */,
 				F15CAAD827578E6100CFAC4D /* Color.swift in Sources */,
+				F1A79A26275E503E00A1FA94 /* TestResultCollectionViewCell.swift in Sources */,
 				F15CAA9C27550E8C00CFAC4D /* Word.swift in Sources */,
+				F1A79A1D275C5C9B00A1FA94 /* AlertView.swift in Sources */,
 				F15CAAB22755C98700CFAC4D /* WordSetViewModel.swift in Sources */,
 				F15CAAB02755C98100CFAC4D /* WordSetViewController.swift in Sources */,
 				F15CAAB92755CBF800CFAC4D /* MemorySetStorage.swift in Sources */,
+				F15CAAED275A3A6B00CFAC4D /* TestWord.swift in Sources */,
 				F15CAAB52755C9D000CFAC4D /* WordStorableViewModelType.swift in Sources */,
 				F15CAA4B2754F43100CFAC4D /* SceneDelegate.swift in Sources */,
 				F15CAAC22755EA5600CFAC4D /* WordSetCreateViewController.swift in Sources */,
@@ -496,6 +579,7 @@
 				F15CAAD3275759D500CFAC4D /* WordSetStorage.swift in Sources */,
 				F15CAABD2755D2B800CFAC4D /* WordSetStorableViewModelType.swift in Sources */,
 				F15CAABF2755D3BF00CFAC4D /* WordSetTableViewCell.swift in Sources */,
+				F15CAAE6275A34A400CFAC4D /* StudyViewModel.swift in Sources */,
 				F15CAAA1275510A300CFAC4D /* WordListViewModel.swift in Sources */,
 				F15CAAAB27551BEE00CFAC4D /* WordListTableViewCell.swift in Sources */,
 				F15CAAC82755F48100CFAC4D /* WordListCreateViewController.swift in Sources */,
@@ -675,6 +759,8 @@
 				INFOPLIST_FILE = AWord/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -686,7 +772,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -702,6 +788,8 @@
 				INFOPLIST_FILE = AWord/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -713,7 +801,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
