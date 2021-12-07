@@ -46,6 +46,7 @@ class TestResultCollectionViewCell: UICollectionViewCell {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(_speaker, for: .normal)
         button.addTarget(self, action: #selector(speak), for: .touchUpInside)
+        button.contentMode = .scaleAspectFit
         return button
     }()
     
@@ -96,6 +97,7 @@ class TestResultCollectionViewCell: UICollectionViewCell {
         
         speakButton.snp.makeConstraints {
             $0.bottom.trailing.equalToSuperview().offset(-10)
+            $0.width.height.equalTo(45)
         }
     }
     

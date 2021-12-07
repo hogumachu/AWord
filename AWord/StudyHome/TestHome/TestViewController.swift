@@ -3,7 +3,6 @@ import RxSwift
 import SnapKit
 
 class TestViewController: UIViewController {
-    
     struct Dependency {
         let viewModel: TestViewModel
     }
@@ -45,6 +44,7 @@ class TestViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(_speaker, for: .normal)
+        button.contentMode = .scaleAspectFit
         return button
     }()
     
@@ -88,7 +88,7 @@ class TestViewController: UIViewController {
         
         speakButton.snp.makeConstraints {
             $0.trailing.bottom.equalToSuperview().offset(-5)
-            $0.width.height.equalTo(30)
+            $0.width.height.equalTo(45)
         }
         
         exampleStackView.snp.makeConstraints {
