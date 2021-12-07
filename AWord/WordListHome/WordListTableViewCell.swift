@@ -62,14 +62,14 @@ class WordListTableViewCell: UITableViewCell {
     private let checkMarkImageView: UIImageView = {
         let imageView = UIImageView(image: _checkmark)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         imageView.isHidden = true
         return imageView
     }()
     private let xMarkImageView: UIImageView = {
         let imageView = UIImageView(image: _xmarkRed)
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleToFill
+        imageView.contentMode = .scaleAspectFit
         imageView.isHidden = true
         return imageView
     }()
@@ -133,17 +133,17 @@ class WordListTableViewCell: UITableViewCell {
         }
         
         checkMarkImageView.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(15)
-            $0.centerY.equalTo(cardView.snp.centerY)
+            $0.trailing.equalToSuperview().offset(-15)
+            $0.top.equalToSuperview().offset(10)
             
-            $0.width.height.equalTo(30)
+            $0.width.height.equalTo(15)
         }
         
         xMarkImageView.snp.makeConstraints {
-            $0.leading.equalToSuperview().offset(15)
-            $0.centerY.equalTo(cardView.snp.centerY)
+            $0.trailing.equalToSuperview().offset(-15)
+            $0.top.equalToSuperview().offset(10)
             
-            $0.width.height.equalTo(30)
+            $0.width.height.equalTo(15)
         }
     }
     
@@ -184,6 +184,4 @@ class WordListTableViewCell: UITableViewCell {
             }
         }
     }
-    
-    
 }

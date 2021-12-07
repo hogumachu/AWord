@@ -5,7 +5,7 @@ public let _titleColor = UIColor { (traitCollection: UITraitCollection) -> UICol
 }
 
 public let _backgroundColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
-    return UIColor(hex: "F6F2D4")
+    return UIColor(hex: "E6DDC4")
 }
 
 public let _lightTitleColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
@@ -14,5 +14,5 @@ public let _lightTitleColor = UIColor { (traitCollection: UITraitCollection) -> 
 }
 
 public let _lightBackgroundColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in
-    return UIColor(hex: "F6F2D4", alpha: 0.8)
+    return UIColor(hex: "F6F2D4")
 }

@@ -18,7 +18,7 @@ class AlertView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.font = .systemFont(ofSize: 18, weight: .semibold)
         label.numberOfLines = 0
         label.textAlignment = .center
         return label
@@ -27,7 +27,7 @@ class AlertView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .black
-        label.font = .systemFont(ofSize: 15, weight: .semibold)
+        label.font = .systemFont(ofSize: 16, weight: .medium)
         label.numberOfLines = 2
         label.textAlignment = .center
         return label
@@ -52,7 +52,7 @@ class AlertView: UIView {
         button.setTitle("확인", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.setTitleColor(.systemGray, for: .highlighted)
-        button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
+        button.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         button.backgroundColor = .systemBlue
         button.layer.cornerRadius = 8
         button.layer.cornerCurve = .continuous
@@ -87,7 +87,7 @@ class AlertView: UIView {
         super.init(frame: frame)
     }
     
-    // MARK: - Helper
+    // MARK: - Show
     
     class func show(_ text: String = "", _ subTitle: String = "") {
         DispatchQueue.main.async {
@@ -106,6 +106,8 @@ class AlertView: UIView {
             shared.setXMarkImageView(text, subTitle)
         }
     }
+    
+    // MARK: - Helper
     
     private func hiddenImageViews() {
         checkMarkImageView.isHidden = true
@@ -132,24 +134,14 @@ class AlertView: UIView {
         xMarkAnimation()
     }
     
-    private func xMarkAnimation() {
-        UIView.animate(withDuration: 0.3) {
-            self.alpha = 1
-        } completion: { [weak self] isCompleted in
-            if isCompleted, let xMarkImageView = self?.xMarkImageView {
-                UIView.transition(with: xMarkImageView, duration: 0.5, options: .transitionFlipFromRight) {
-                    xMarkImageView.image = _xmarkCircleFillRed
-                }
-            }
-        }
-    }
-    
     private func showAlert(_ text: String = "", _ subTitle: String = "") {
         alertLabel.text = text
         subTitleLabel.text = subTitle
         setUI()
         defaultAnimation()
     }
+    
+    // MARK: - Animation
     
     private func defaultAnimation() {
         UIView.animate(withDuration: 0.3) {
@@ -168,6 +160,20 @@ class AlertView: UIView {
             }
         }
     }
+    
+    private func xMarkAnimation() {
+        UIView.animate(withDuration: 0.3) {
+            self.alpha = 1
+        } completion: { [weak self] isCompleted in
+            if isCompleted, let xMarkImageView = self?.xMarkImageView {
+                UIView.transition(with: xMarkImageView, duration: 0.5, options: .transitionFlipFromRight) {
+                    xMarkImageView.image = _xmarkCircleFillRed
+                }
+            }
+        }
+    }
+    
+    // MARK: - Set UI
     
     private func setUI() {
         alpha = 0

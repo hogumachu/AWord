@@ -112,6 +112,7 @@ extension Coordinator {
         switch scene {
         case .testResult:
             let testResultVC = testResultViewControllerFactory(.init(viewModel: .init(dependency: .init(coordinator: self, rightWords: rightWords, wrongWords: wrongWords))))
+            testResultVC.modalPresentationStyle = .fullScreen
             return testResultVC
         default:
             return UIViewController()
