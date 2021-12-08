@@ -12,7 +12,6 @@
 - RxDataSource
 - SnapKit
 
-
-
+설명
 ---
-[시연 영상](https://www.youtube.com/watch?v=glJL4WHS1hw)
+[Link](https://github.com/hogumachu/AWord/wiki/%08AWord-Description)
